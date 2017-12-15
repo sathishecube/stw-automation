@@ -14,6 +14,7 @@ public void testJenkins(){
 	System.setProperty("webdriver.gecko.driver", "\\\\AMXSERVER\\amx-share\\STW_QA\\Jar files\\geckodriver.exe");
 	WebDriver driver = new FirefoxDriver();
 	driver.get("http://www.cricinfo.com");
+	System.out.println("Sathish");
 	driver.close();
 }
 
