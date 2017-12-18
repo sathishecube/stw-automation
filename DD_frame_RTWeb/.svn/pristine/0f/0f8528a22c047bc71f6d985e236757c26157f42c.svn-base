@@ -1,0 +1,547 @@
+package dd_core;
+
+import java.io.IOException;
+import java.util.Map;
+import java.util.Properties;
+import java.util.TreeMap;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import org.apache.log4j.Logger;
+import org.openqa.selenium.WebDriver;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Test;
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.ExtentTest;
+import dd_test.*;
+import dd_utils.*;
+
+public class TestCore {
+	
+	static Map<String, Object[]> data= new TreeMap<String, Object[]>();
+	static Map<String, Object[]> data1= new TreeMap<String, Object[]>();
+	public static WebDriver driver = null;
+	public static ExcelReader excel = new ExcelReader(System.getProperty("user.dir")+"\\src\\dd_properties\\RT-Web.xls");
+	public static Logger log = Logger.getLogger("devpinoyLogger"); 
+	public static Properties Object = new Properties();
+	public static Properties Object1 = new Properties();
+	public static ExtentReports reports =new ExtentReports(System.getProperty("user.dir")+"\\TestResults\\TestResult.html",true);
+	static String input[][] = TestUtil.getData("Summary");
+	static int rc = 100;
+	
+	
+	@BeforeSuite
+	public static void setUp() throws IOException 
+	{
+		TestUtil.set();
+		data.put(""+rc, new Object[] {"TC No", "Module", "Description", "Expected Result", "Actual Result", "Status", "Execution Time(Sec.)"});
+		rc++;
+	}
+	
+	@Test
+	public static void login() throws Exception
+	{
+		if(input[0][0].equalsIgnoreCase("Login") && input[0][1].equalsIgnoreCase("Y"))
+		{
+			
+		ExtentTest test =reports.startTest("Login");
+		test.appendChild(test);
+		
+		 
+		String sd = input[0][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[0][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		
+		data1 = Login.testcases(data1, rc, "Login",test ,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		
+		}
+				
+	}
+	
+	@Test 
+	public static void setting() throws Exception
+	{ 
+		if(input[1][0].equalsIgnoreCase("Settings") && input[1][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("Settings");
+		test.appendChild(test);
+		
+		String sd = input[1][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[1][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = Settings.setting(data1, rc, "Settings",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void cstatus() throws Exception
+	{
+		if(input[27][0].equalsIgnoreCase("Command Status") && input[27][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("Command Status");
+		test.appendChild(test);
+		
+		String sd = input[27][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[27][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = Cstatus.Cstatuscases(data1, rc, "Command Status",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void chistory() throws Exception
+	{
+		if(input[28][0].equalsIgnoreCase("Command History") && input[28][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("Command History");
+		test.appendChild(test);
+		
+		String sd = input[28][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[28][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		System.out.println("Start case:"+ scase);
+		
+		data1 = CHistory.Chistorycase(data1, rc, "Command History",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void logistic() throws Exception
+	{
+		if(input[13][0].equalsIgnoreCase("LogisticUtilization") && input[13][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("Logistic Utilization");
+		test.appendChild(test);
+		
+		String sd = input[13][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[13][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = Logistic.logisticutilization(data1, rc, "LogisticUtilization",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void logisticCLM() throws Exception
+	{
+		if(input[14][0].equalsIgnoreCase("LogisticCLM") && input[14][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("LogisticCLM");
+		test.appendChild(test);
+		
+		String sd = input[14][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[14][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = LogisticCLM.logisticCLMtestcase(data1, rc, "LogisticCLM",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void logisticWayBill() throws Exception
+	{
+		if(input[15][0].equalsIgnoreCase("LogisticWayBill") && input[15][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("LogisticWayBill");
+		test.appendChild(test);
+		
+		String sd = input[15][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[15][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = LogisticWayBill.logisticWayBilltestcase(data1, rc, "LogisticWayBill",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void reeferdooralarms() throws Exception
+	{
+		if(input[12][0].equalsIgnoreCase("Reefers Door Alarm") && input[12][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersDoorAlarms");
+		test.appendChild(test);
+		
+		String sd = input[12][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[12][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		
+		data1 = ReeferDoorAlarms.reeferdooralarmtestcases(data1, rc, "ReefersDoorAlarms",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void reeferfuelflows() throws Exception
+	{
+		if(input[11][0].equalsIgnoreCase("Reefers Fuel Flow") && input[11][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersFuelFlow");
+		test.appendChild(test);
+		
+		String sd = input[11][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[11][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = ReeferFuel.ReefersFuelFlowtestcases(data1, rc, "ReefersFuelFlow",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	
+	
+	@Test
+	public static void reeferSM() throws Exception
+	{
+		if(input[10][0].equalsIgnoreCase("Reefers SM") && input[10][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersSM");
+		test.appendChild(test);
+		
+		String sd = input[10][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[10][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = ReefersSM.reeferSMtestcases(data1, rc, "ReefersSM",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void disparitystatus() throws Exception
+	{
+		if(input[18][0].equalsIgnoreCase("DisparityStatus") && input[18][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("DisparityStatus");
+		test.appendChild(test);
+		
+		String sd = input[18][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[18][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 = DisparityStatus.DisparityStatustestcase(data1, rc, "DisparityStatus",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void orderstatus() throws Exception
+	{
+		if(input[16][0].equalsIgnoreCase("OrderStatus") && input[16][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("OrderStatus");
+		test.appendChild(test);
+		
+		String sd = input[16][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[16][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =OrderStatus.OrderStatustestcase(data1, rc, "OrderStatus",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	
+	@Test
+	public static void ordermanifest() throws Exception
+	{
+		if(input[17][0].equalsIgnoreCase("OrderManifest") && input[17][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("OrderManifest");
+		test.appendChild(test);
+		
+		String sd = input[17][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[17][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =OrderStatus.OrderStatustestcase(data1, rc, "OrderManifest",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	@Test
+	public static void reeferstatus() throws Exception
+	{
+		if(input[2][0].equalsIgnoreCase("ReeferStatus") && input[2][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReeferStatus");
+		test.appendChild(test);
+		
+		String sd = input[2][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[2][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =ReeferStatus.reeferStatustestcases(data1, rc, "ReeferStatus",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	@Test
+	public static void reefermultitemp() throws Exception
+	{
+		if(input[3][0].equalsIgnoreCase("ReefersMultiTemp") && input[3][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersMultiTemp");
+		test.appendChild(test);
+		
+		String sd = input[3][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[3][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =ReeferMultitemp.reeferMultitemptestcases(data1, rc, "ReefersMultiTemp",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+		
+	
+	@Test
+	public static void reefermaintenance() throws Exception
+	{
+		if(input[4][0].equalsIgnoreCase("ReefersMaintenance") && input[4][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersMaintenance");
+		test.appendChild(test);
+		
+		String sd = input[4][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[4][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =ReeferMaintenance.reeferMaintenancetestcases(data1, rc, "ReefersMaintenance",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+
+	@Test
+	public static void reeferpretrip() throws Exception
+	{
+		if(input[5][0].equalsIgnoreCase("ReefersPretrip") && input[5][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReefersPretrip");
+		test.appendChild(test);
+		
+		String sd = input[5][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[5][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =ReeferPretrip.reeferpretriptestcases(data1, rc, "ReefersPretrip",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		
+		}
+				
+	}
+	@Test
+	public static void reeferITAhistory() throws Exception
+	{
+		if(input[4][0].equalsIgnoreCase("ReeferITAHistory") && input[4][1].equalsIgnoreCase("Y"))
+		{
+		ExtentTest test =reports.startTest("ReeferITAHistory");
+		test.appendChild(test);
+		
+		String sd = input[4][2];
+		float sd1 = Float.parseFloat(sd);
+		int scase = Math.round(sd1);
+		System.out.println("Start case:"+ scase);
+		
+		String ed = input[4][3];
+		float ed1 = Float.parseFloat(ed);
+		int ecase = Math.round(ed1);
+		
+		data1 =ReefersITAHistory.reeferITAtestcases(data1, rc, "ReeferITAHistory",test,scase,ecase);
+		System.out.println("rc"+rc);
+		rc=rc+data1.size();
+		System.out.println("data size"+data1.size());
+		data.putAll(data1);
+		reports.endTest(test);
+		}
+				
+	}
+	
+	
+	@AfterSuite
+	public static void tearDown() throws AddressException, MessagingException{
+		
+		excel.writeoutput(data, "Output");
+		TestUtil.zip("D:\\workspace\\DD_frame_RTWeb\\TestResults");
+		Mail M = new Mail();
+		M.sendMail(TestConfig.server, TestConfig.from, TestConfig.to, TestConfig.subject, TestConfig.messageBody, TestConfig.attachmentPath, TestConfig.attachmentName);
+	}
+
+}
