@@ -91,6 +91,7 @@ public class GSMMsgProducer {
 	
 	public void jmsInit() {
 		try {
+			
 			System.out.println("Inside JMSINit");
 			Context ctx = getInitialContext();
 			factory = (QueueConnectionFactory) ctx.lookup(QUEUE_CONNECTOR);
