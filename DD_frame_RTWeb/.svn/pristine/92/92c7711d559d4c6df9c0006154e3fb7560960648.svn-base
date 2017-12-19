@@ -1,0 +1,3548 @@
+package dd_test;
+
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.Test;
+
+import com.relevantcodes.extentreports.ExtentTest;
+import com.relevantcodes.extentreports.LogStatus;
+
+import dd_core.TestCore;
+import dd_utils.LogisticUtils;
+import dd_utils.TestUtil;
+
+public class ReeferStatus extends TestCore 
+{
+	static TestUtil s =new TestUtil();
+	static LogisticUtils Cs =new LogisticUtils();
+		
+	@Test
+	public static Map<String, Object[]> reeferSMtestcases(Map<String, Object[]> data, int rc ,String sheet, ExtentTest test,int scase,int ecase) throws IOException, InterruptedException, Exception
+	{
+		String acop =null;
+		int counter =1;
+		ExtentTest node = reports.startTest("ReefersSM");
+		String[][] d1 =TestUtil.getData("ReefersSM");
+		driver = new FirefoxDriver();
+		driver.get(Object.getProperty("URL"));
+		s.dologin(driver ,d1[0][2], d1[0][3]);
+		try
+		{
+			for(int i=scase-1;i<ecase;i++ )
+			{
+				//driver = new ChromeDriver();
+				
+				long stime=System.currentTimeMillis();
+				
+				Robot robot = new Robot();
+				robot.keyPress(KeyEvent.VK_ESCAPE);
+				Thread.sleep(200);
+				robot.keyRelease(KeyEvent.VK_ESCAPE);
+				
+				if(d1[i][0].equalsIgnoreCase("TC1"))
+  				{
+  					try
+  					{
+  						System.out.println( "###################Test case 1 is executing############################");
+  						System.out.println("before wait");
+  						Thread.sleep(5000);
+  						System.out.println("after wait");
+  						driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{	
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  						System.out.println("before while");
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{		
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						Thread.sleep(5000);
+  						if(!(s.isElementPresentcheck(By.xpath(Object.getProperty("ReeferSearch")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("EditDateRange")), driver)) || 
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("RefreshIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("PrintIcon")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("PageNumber")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ExcelDownload")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("DateTimeIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("TemperatureIcon")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("FuelLevelIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("DistanceCalcIcon")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("ExcelDownloadAll")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("StatusShowFilter")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("SelectAssetTags")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ColumnShowHide")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("ControlProbeIcon")), driver)) || (!s.isElementPresentcheck(By.xpath(Object.getProperty("SearchButton")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("StatusDashboard")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ViewMap")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("pollCommands")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ControlCommands")), driver)) ||
+  								!(s.isElementPresentcheck(By.xpath(Object.getProperty("MoreActions")), driver)))
+  						{
+  							System.out.println("Page not loaded Successfully");
+  							acop = "Reefers Status Page not Loaded Successfully";
+  							node.log(LogStatus.FAIL, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  							rc++;
+  							String scr = s.CaptureScreenshot();
+  							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  							System.out.println( "###################Test case 1 execution completed############################");
+  						}
+  						else
+  						{	
+  							System.out.println("Page loaded Successfully");
+  							acop = "Reefers Status Page Loaded Successfully";
+  							node.log(LogStatus.PASS, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  							rc++;
+  							excel.writePass(d1[i][0], counter, sheet, acop);
+  							System.out.println( "###################Test case 1 execution completed############################");
+  						}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				
+  				}
+  				
+				
+  				if(d1[i][0].equalsIgnoreCase("TC2"))
+  				{
+	  				try
+	  				{
+	  					System.out.println( "###################Test case 2 is executing############################");
+	  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+	  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+	  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+	  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{	
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+	  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{	
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  					driver.findElement(By.xpath(Object.getProperty("ReeferSearch"))).sendKeys(d1[i][5]);
+	  					driver.findElement(By.xpath(Object.getProperty("SearchButton"))).click();
+	  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  					if(s.isElementPresentcheck(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr/td[2]/a"), driver))
+	  					{
+  					
+	  						String Chk=driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr/td[2]/a")).getText();
+	  						System.out.println(Chk);
+	  						System.out.println(Chk.length());
+	  						
+	  						int pt=0;
+	  						String cut="Null";
+	  						if(Chk.contains("\n"))
+	  						{
+	  							pt=Chk.indexOf("\n");
+	  							cut = Chk.substring(0, pt);
+	  						}
+	  						if(!Chk.equalsIgnoreCase(cut))
+	  						{
+	  							Chk=cut;
+	  							System.out.println(cut.length());
+	  							System.out.println(cut);
+	  							System.out.println(Chk);
+	  						}
+	  						if(Chk.equalsIgnoreCase(d1[i][5]))
+	  						{
+	  							System.out.println("Search value displayed Successfully");
+	  							acop = "Selected search value"+ Chk +" displayed Successfully";
+	  							node.log(LogStatus.PASS, acop);
+	  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+	  							rc++;
+	  							excel.writePass(d1[i][0], counter, sheet, acop);
+	  							System.out.println( "###################Test case 2 execution completed############################");
+	  						}
+	  						else
+	  						{
+	  							System.out.println("Search value not displayed ");
+	  							acop = "Selected search value"+ Chk +" not displayed Successfully";
+	  							node.log(LogStatus.FAIL, acop);
+	  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  							rc++;
+	  							String scr = s.CaptureScreenshot();
+	  							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  							System.out.println( "###################Test case 2 execution failed############################");
+	  						}
+	  					}
+	  					else
+	  					{
+	  						System.out.println("Search Failed ... No data Found ");
+	  					}
+	  					driver.findElement(By.xpath(Object.getProperty("ClearSearch"))).click();
+	  					if(s.isAlertPresent(driver))
+	  					{
+	  						driver.switchTo().alert().accept();
+	  					}		
+	  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  				}catch(Exception e)
+	  				{e.printStackTrace();}
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC3"))
+  				{
+  					try
+  					{
+  						String sDate =s.dateConvert(d1[i][6]);
+  						String eDate =s.dateConvert(d1[i][7]);
+  						
+  						System.out.println( "###################Test case 3 is executing############################");
+  						driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{	
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  					
+  						do
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver));
+  				
+  						driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+  						do
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver));
+  				
+  						if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  						{
+  							System.out.println("All Columns selected");
+  							driver.findElement(By.xpath(Object.getProperty("ShowHideColumnCancel"))).click();
+  							Thread.sleep(1000);
+  						}
+  						else
+  						{
+  							driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  							driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+  							while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  							{
+  								System.out.println("inside while");
+  								Thread.sleep(1000);
+  							}
+  							System.out.println("All columns are now selected..");
+  						}
+  				
+  				
+  				
+  						driver.findElement(By.xpath(Object.getProperty("EditDateRange"))).click();
+  						if(s.isElementPresentcheck(By.xpath(Object.getProperty("StartDate")),driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("EndDate")),driver) 
+  								&& s.isElementPresentcheck(By.xpath(Object.getProperty("SetDateRange")),driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("DateCancel")),driver))
+  						{
+  							System.out.println("Edit date range pop up displayed Successfully");
+  							if(sDate.equalsIgnoreCase("NA"))
+  							{
+  								acop = "Edit date range window should open.";
+  								node.log(LogStatus.FAIL, acop);
+  								data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  								rc++;
+  								String scr = s.CaptureScreenshot();
+  								excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  								System.out.println( "###################Test case 3 execution completed############################");
+  							}
+  							else
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("StartDate"))).sendKeys(sDate);
+  								driver.findElement(By.xpath(Object.getProperty("EndDate"))).sendKeys(eDate);
+  								driver.findElement(By.xpath(Object.getProperty("SetDateRange"))).click();
+  								while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  								{
+  									System.out.println("inside while");
+  									Thread.sleep(1000);
+  								}
+  								String strMain = driver.findElement(By.xpath(Object.getProperty("DateRangeDisplay"))).getText();
+  								System.out.println("Date range displayed as expected");
+  								//String[] arrSplit = strMain.split(" to ");
+  								int chkIndex=0;
+  								String TotalPages =driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+  								System.out.println(TotalPages);
+  								String Records="Null";
+  								if(TotalPages.contains(" of "))
+  								{
+  									chkIndex=TotalPages.indexOf(" of ");
+  									Records = TotalPages.substring(chkIndex+4);
+  									System.out.println(Records);
+  								}
+  							
+  								if(Records.equalsIgnoreCase("0"))
+  								{
+  									System.out.println("No data found for the event Search");	
+  									acop = "No data";
+  									node.log(LogStatus.PASS, acop);
+  									data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  									rc++;
+  									excel.writePass(d1[i][0], counter, sheet, acop);
+  									System.out.println( "###################Test case 3 execution completed No Data found############################");
+  					
+  								}
+  								else
+  								{
+  									while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  									{	
+  										System.out.println("inside while");
+  										Thread.sleep(1000);
+  									}
+  									String EndDateGet = driver.findElement(By.xpath(Object.getProperty("StatusLstCntDate"))).getText();
+  									Thread.sleep(2000);
+  									driver.findElement(By.xpath(Object.getProperty("StatusLstCnt"))).click();
+  									while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  									{	
+  										System.out.println("inside while");
+  										Thread.sleep(1000);
+  									}
+  									String StartDateGet = driver.findElement(By.xpath(Object.getProperty("StatusLstCntDate"))).getText();
+  									System.out.println(EndDateGet);
+  									System.out.println(StartDateGet);
+  							
+  									StartDateGet=s.cutString(StartDateGet, "\n");
+  									EndDateGet=s.cutString(EndDateGet, "\n");
+  									System.out.println("StartDate="+StartDateGet);
+  									System.out.println("EndDate="+EndDateGet);
+  									DateFormat df = new SimpleDateFormat("MM-dd-yy");
+  									Date date1=df.parse(StartDateGet);
+  									Date date2=df.parse(EndDateGet);
+  									SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yy");
+  									String StartDate = sdf.format(date1);
+  									String EndDate = sdf.format(date2);
+  									System.out.println("Converted to"+StartDate);
+  									System.out.println("Converted to"+EndDate);
+  									if(s.dateCompare(sDate, eDate, StartDate)==1 && s.dateCompare(sDate, eDate, EndDate)==1 )
+  									{
+  								
+  										acop = "Date within range";
+  										node.log(LogStatus.PASS, acop);
+  										data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  										rc++;
+  										excel.writePass(d1[i][0], counter, sheet, acop);
+  										System.out.println( "###################Test case 3 execution completed############################");
+  									}
+  									else
+  									{
+  										System.out.println("Search value not displayed ");
+  										acop = "Date not in range";
+  										node.log(LogStatus.FAIL, acop);
+  										data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  										rc++;
+  										String scr = s.CaptureScreenshot();
+  										excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  										System.out.println( "###################Test case 3 execution failed############################");
+  									}
+  							
+  								}
+  							}
+  						}
+  						else
+  						{
+  							System.out.println("Edit date range pop up not displayed");
+  							acop = "Edit date range window not yet opened.";
+  							node.log(LogStatus.FAIL, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  							rc++;
+  							String scr = s.CaptureScreenshot();
+							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+							System.out.println( "###################Test case 3 execution completed############################");
+  						}
+  						s.clearDateRange(driver, Object);
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  					
+  				}
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC4"))
+  				{
+  					try
+  					{
+  						System.out.println( "###################Test case 4 is executing############################");
+  						driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  						//Thread.sleep(1000);
+  					
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						String totalRecords =driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+  						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  				
+					
+  						if(s.isElementPresentcheck(By.xpath(Object.getProperty("FilterLoadStatus")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("FilterDisparity")), driver) 
+  								&& s.isElementPresentcheck(By.xpath(Object.getProperty("FilterAlerts")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("FilterReeferPower")), driver) 
+  								&& s.isElementPresentcheck(By.xpath(Object.getProperty("FilterAlarm")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("StatusFilterApply")), driver)
+  								&& s.isElementPresentcheck(By.xpath(Object.getProperty("StatusFilterCancel")), driver))
+  						{
+  							System.out.println("Filter Popup window opened Successfully");
+  							//driver.findElement(By.xpath(Object.getProperty("ImpactShowFilters"))).click();
+  							driver.findElement(By.xpath(Object.getProperty("FilterLoadStatus"))).click();
+  							driver.findElement(By.xpath(Object.getProperty("LoadStatusLoaded"))).click();
+  							//driver.findElement(By.xpath(Object.getProperty("FilterMovStatusDropdown"))).click();
+  							//driver.findElement(By.xpath(Object.getProperty("InTransit"))).click();
+  							System.out.println("Filter values entered");
+  							driver.findElement(By.xpath(Object.getProperty("StatusFilterCancel"))).click();
+  							String ChkRecords =driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+  							System.out.println(totalRecords+"::"+ChkRecords);
+  							if(totalRecords.equalsIgnoreCase(ChkRecords))
+  							{
+  								System.out.println("show filter cancel button working as expected");
+  								acop = "cancel button working as expected";
+  								node.log(LogStatus.PASS, acop);
+  								data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  								rc++;
+  								excel.writePass(d1[i][0], counter, sheet, acop);
+  								//System.out.println( "###################Test case 4 execution completed############################");
+  							}
+  							else
+  							{
+  								System.out.println("Show filter Cancel Button not working as expected");
+  								acop = "Cancel button not working as Expected";
+  								node.log(LogStatus.FAIL, acop);
+  								data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  								rc++;
+  								String scr = s.CaptureScreenshot();
+  								excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  								//System.out.println( "###################Test case 4 execution failed############################");
+  							}
+  						}
+  						else
+  						{
+  							acop = "Filter Popup window not Displayed Successfully";
+  							node.log(LogStatus.FAIL, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  							rc++;
+  							String scr = s.CaptureScreenshot();
+  							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  							//System.out.println( "###################Test case 4 execution completed############################");
+  						}  				
+  						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+  						boolean strFilterResult = false;
+  						strFilterResult = Cs.checkFilterValue(driver, Object, "100", "loadStatus", "20", false, "Text", "StatusFilterApply","StatusClearFilter");
+  						//s.clearFilter(driver, Object, "StatusClearFilter");
+  						System.out.println("<<<<<<<<<<<<<<<<<<<<<Load Status Filter Status>>>>>>>>>>>>>"+strFilterResult);
+  						if(strFilterResult==true)
+  						{
+  							System.out.println("Load Status data filter is working as expected");
+  							acop = "Load Status data filter is working as expected";
+  							node.log(LogStatus.PASS, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  							rc++;
+  							excel.writePass(d1[i][0], counter, sheet, acop);
+  							System.out.println( "###################Test case 4 execution completed############################");
+  						}
+  						else
+  						{
+  							System.out.println("Load Status data filter is not working as expected");
+  							acop = "Load Status data filter is not working as expected";
+  							node.log(LogStatus.FAIL, acop);
+  							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  							rc++;
+  							String scr = s.CaptureScreenshot();
+  							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  							System.out.println( "###################Test case 4 execution failed############################");
+  						}
+						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+						Thread.sleep(1000);
+				
+						strFilterResult =Cs.checkFilterValue(driver, Object, "100", "disparityAlert", "48", false, "Text", "StatusFilterApply","StatusClearFilter");
+						//s.clearFilter(driver, Object, "StatusClearFilter");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<Disparity Alert Filter Status>>>>>>>>>>>>>"+strFilterResult);
+						if(strFilterResult==true)
+						{
+							System.out.println("Disparity data filter is working as expected");
+							acop = "Disparity data filter is working as expected";
+							node.log(LogStatus.PASS, acop);
+							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+							rc++;
+							excel.writePass(d1[i][0], counter, sheet, acop);
+							System.out.println( "###################Test case 4 execution completed############################");
+						}
+						else
+						{
+							System.out.println("Disparity data filter is not working as expected");
+							acop = "Disparity data filter is not working as expected";
+							node.log(LogStatus.FAIL, acop);
+							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+							rc++;
+							String scr = s.CaptureScreenshot();
+							excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+							System.out.println( "###################Test case 4 execution failed############################");
+						}
+				
+				
+						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+					
+						strFilterResult = Cs.checkFilterValue(driver, Object, "100", "nonReporting", "48", false, "Text", "StatusFilterApply","StatusClearFilter");
+						//s.clearFilter(driver, Object, "StatusClearFilter");reeferPower
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<Alert Filter Status>>>>>>>>>>>>>"+strFilterResult);
+						if(strFilterResult==true)
+						{
+							System.out.println("Alert data filter is working as expected");
+							acop = "Alert data filter is working as expected";
+							node.log(LogStatus.PASS, acop);
+	  	  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+	  	  					rc++;
+	  	  					excel.writePass(d1[i][0], counter, sheet, acop);
+	  	  					System.out.println( "###################Test case 4 execution completed############################");
+						}
+						else
+						{
+							System.out.println("Alert data filter is not working as expected");
+							acop = "Alert data filter is not working as expected";
+							node.log(LogStatus.FAIL, acop);
+							data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  	  					rc++;
+	  	  					String scr = s.CaptureScreenshot();
+	  	  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  	  					System.out.println( "###################Test case 4 execution failed############################");
+						}
+					
+						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+						
+						strFilterResult = Cs.checkFilterValue(driver, Object, "100", "reeferPower", "23", false, "Text", "StatusFilterApply","StatusClearFilter");
+						//s.clearFilter(driver, Object, "StatusClearFilter");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<Reefer Power Filter Status>>>>>>>>>>>>>"+strFilterResult);
+						if(strFilterResult==true)
+						{
+							System.out.println("Reefer Power data filter is working as expected");
+	  						acop = "Reefer Power data filter is working as expected";
+	  						node.log(LogStatus.PASS, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				excel.writePass(d1[i][0], counter, sheet, acop);
+		  	  				System.out.println( "###################Test case 4 execution completed############################");
+						}
+						else
+						{
+							System.out.println("Reefer Power data filter is not working as expected");
+	  						acop = "Reefer Power data filter is not working as expected";
+	  						node.log(LogStatus.FAIL, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				String scr = s.CaptureScreenshot();
+		  	  				excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  	  				System.out.println( "###################Test case 4 execution failed############################");
+						}
+					
+						driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+						Thread.sleep(1000);
+						
+						strFilterResult = Cs.checkFilterValue(driver, Object, "100", "activeAlarmStatus", "46", false, "Text", "StatusFilterApply","StatusClearFilter");
+						//s.clearFilter(driver, Object, "StatusClearFilter");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<Alarm Filter Status>>>>>>>>>>>>>"+strFilterResult);
+						if(strFilterResult==true)
+						{
+							System.out.println("Alarm filter is working as expected");
+	  						acop = "Alarm filter is working as expected";
+	  						node.log(LogStatus.PASS, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				excel.writePass(d1[i][0], counter, sheet, acop);
+		  	  				System.out.println( "###################Test case 4 execution completed############################");
+						}
+						else
+						{
+							System.out.println("Alarm filter is not working as expected");
+	  						acop = "Alarm filter is not working as expected";
+	  						node.log(LogStatus.FAIL, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				String scr = s.CaptureScreenshot();
+		  	  				excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  	  				System.out.println( "###################Test case 4 execution failed############################");
+						}
+						
+						driver.findElement(By.xpath(Object.getProperty("ReeferTrak"))).click(); 
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("Settings"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsYardDisplay"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsYardSeperate"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsUpdate"))).click();
+		  				
+		  				
+		  				if(s.isAlertPresent(driver))
+		  				{
+		  				Alert alert = driver.switchTo().alert();
+		  				System.out.println(alert.getText());
+		  				 	 	alert.accept();
+		  				}
+		  				Thread.sleep(2000);
+		  				if(s.isAlertPresent(driver))
+		  				{
+		  				Alert alert = driver.switchTo().alert();
+		  				alert.accept();
+		  				}
+		  				Thread.sleep(5000);
+		  				driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+	  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][5]);
+	  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+	  					//Thread.sleep(1000);
+	  					
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+	  				driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+	  				
+	  				driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+	  				
+	  				if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+	  				{
+	  					System.out.println("IS SELECTED WORKING FINE");
+	  					System.out.println("All column already selected and now again selecting it....");
+	  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+	  					Thread.sleep(2000);
+	  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+	  					Thread.sleep(2000);
+	  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+		  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  					/*driver.findElement(By.xpath(Object.getProperty("ShowHideColumnCancel"))).click();
+	  					Thread.sleep(1000);*/
+	  				}
+	  				else
+	  				{
+	  					System.out.println("Select aagalaye...");
+	  					System.out.println("Select All column not Selected so I'm Selecting it now");
+	  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+	  					Thread.sleep(2000);
+	  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+		  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  					{
+	  						System.out.println("inside while");
+	  						Thread.sleep(1000);
+	  					}
+	  				}
+						
+	  				driver.findElement(By.xpath(Object.getProperty("StatusShowFilter"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+						{
+							System.out.println("inside while");
+							Thread.sleep(1000);
+						}
+						Thread.sleep(1000);
+						
+						strFilterResult = Cs.checkFilterValue(driver, Object, "100", "geofenceId", "14", false, "Text", "StatusFilterApply","StatusClearFilter");
+						//s.clearFilter(driver, Object, "StatusClearFilter");
+						System.out.println("<<<<<<<<<<<<<<<<<<<<<Yard Filter Status>>>>>>>>>>>>>"+strFilterResult);
+						if(strFilterResult==true)
+						{
+							System.out.println("Yard filter is working as expected");
+	  						acop = "Yard filter is working as expected";
+	  						node.log(LogStatus.PASS, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				excel.writePass(d1[i][0], counter, sheet, acop);
+		  	  				System.out.println( "###################Test case 4 execution completed############################");
+						}
+						else
+						{
+							System.out.println("Yard filter is not working as expected");
+	  						acop = "Yard filter is not working as expected";
+	  						node.log(LogStatus.FAIL, acop);
+		  	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  	  				rc++;
+		  	  				String scr = s.CaptureScreenshot();
+		  	  				excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  	  				System.out.println( "###################Test case 4 execution failed############################");
+						}
+						
+						
+						////////////////////////////Revert back the setting //////////////////////////////////////
+						Thread.sleep(5000);
+						driver.findElement(By.xpath(Object.getProperty("ReeferTrak"))).click(); 
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("Settings"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsYardDisplay"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsYardCombined"))).click();
+		  				Thread.sleep(2000);
+		  				driver.findElement(By.xpath(Object.getProperty("SettingsUpdate"))).click();
+		  				
+		  				
+		  				if(s.isAlertPresent(driver))
+		  				{
+		  				Alert alert = driver.switchTo().alert();
+		  				System.out.println(alert.getText());
+		  				 	 	alert.accept();
+		  				}
+		  				Thread.sleep(2000);
+		  				if(s.isAlertPresent(driver))
+		  				{
+		  				Alert alert = driver.switchTo().alert();
+		  				alert.accept();
+		  				}
+		  				Thread.sleep(5000);
+  					}catch(Exception e)
+  					{e.printStackTrace();}					
+				
+  				}
+  				
+  						
+  				if(d1[i][0].equalsIgnoreCase("TC5"))
+  				{
+  					try
+  					{
+  						System.out.println( "###################Test case 5 is executing############################");
+  						driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  						driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{	
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  						while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  						{
+  							System.out.println("inside while");
+  							Thread.sleep(1000);
+  						}
+  				
+  						//////////////////////////////////////////////////////////////////////////////////////////////////
+  						for(int l=1;l<=3;l++)
+  						{  					
+  							driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+  							while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  							{
+  								System.out.println("inside while");
+  								Thread.sleep(1000);
+  							}
+  							if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  							{
+  								System.out.println("IS SELECTED WORKING FINE");
+  					
+  							}
+  							else
+  							{
+  								System.out.println("Select aagalaye...");
+  								driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  							}
+  							List<WebElement> columnsShow = driver.findElements(By.xpath(".//*[@id='divColumnHeaders']/div["+l+"]/div/ul"));
+
+  							List<ArrayList<String>> columnsData = new ArrayList<ArrayList<String>>();
+  							  			
+  							for(WebElement columnshow:columnsShow)
+  							{
+  								List<WebElement> columnElements = columnshow.findElements(By.xpath("li"));
+  								ArrayList<String> columnData = new ArrayList<String>();
+				 		
+  								for(WebElement column:columnElements)
+  								{
+  									if(!column.getText().equalsIgnoreCase(" "))
+  									{
+  										String []temp = column.getText().split("\n");
+  										columnData.add(temp[0]);
+  									}
+  								}
+  								System.out.println("columnData Values are:::::::::::::"+columnData);
+  								System.out.println("columnData  Size "+columnData.size());
+  								int columnSize =columnData.size();
+				 	
+  								driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+  								while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  								{
+  									System.out.println("inside while");
+  									Thread.sleep(1000);
+  								}
+  				 	
+  								List<WebElement> rows = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+  								List<ArrayList<String>> rowsData = new ArrayList<ArrayList<String>>();
+
+  								for(WebElement row:rows)
+  								{
+  									List<WebElement> rowElements = row.findElements(By.xpath("th"));
+
+  									ArrayList<String> rowData = new ArrayList<String>();
+  									
+  									for(WebElement column1:rowElements)
+  									{
+  										if(!column1.getText().equalsIgnoreCase(" "))
+  											rowData.add(column1.getText().toString());
+  									}
+  									System.out.println("rowData Values are"+rowData);
+  									System.out.println("rowData  Size "+rowData.size());
+  									int rowSize = rowData.size();
+	  				 	
+  									ListIterator<String> iterator = columnData.listIterator();
+  									while (iterator.hasNext())
+  									{
+  										iterator.set(iterator.next().toUpperCase());
+  									}
+  				 	
+  									List< String > sames = new ArrayList<String>(); 
+  									List< String > diffs = new  ArrayList<String>();
+  									int count = 0; 
+  									for( String key : columnData ) 
+  									{ 
+  										if(key.equalsIgnoreCase("TractorID"))
+  										{
+  											key="TRACTOR\nID";
+  										}
+  										else if(key.equalsIgnoreCase("Work Order"))
+  										{
+  											key="WO\nWORK ORDER";
+  										}
+  										else if(key.equalsIgnoreCase("Customer"))
+  										{
+  											key="CUST.\nCUSTOMER";
+  										}
+  										else if(key.equalsIgnoreCase("LastContact"))
+  										{
+  											key = "LAST\nCONTACT";
+  										}
+  										else if(key.equalsIgnoreCase("Moving/Stationary"))
+  										{
+  											key="M/S\nMOVING/STATIONARY";
+  										}
+  										else if(key.equalsIgnoreCase("Mode ofOperation"))
+  										{
+  											key ="MODE OF\nOPERATION";
+  										}
+  										else if(key.equalsIgnoreCase("PPSI"))
+  										{
+  											key ="PPSI\nPPSI";
+  										}
+  										else if(key.equalsIgnoreCase(" Fuel Flow Meter Count"))
+  										{
+  											key ="FFMC\nFUEL FLOW METER COUNT";
+  										}
+  										else if(key.equalsIgnoreCase("Hours"))
+  										{
+  											key ="HRS\nHOURS";
+  										}
+  										else if(key.equalsIgnoreCase("RPM"))
+  										{
+  											key = "RPM\nRPM";
+  										}
+  										else if(key.equalsIgnoreCase("Communications Platform"))
+  										{
+  											key ="CP\nCOMMUNICATIONS PLATFORM";
+  										}
+  										else if(key.equalsIgnoreCase("Message Mode"))
+  										{
+  											key =" MM\nMESSAGE MODE";
+  										}
+  										else if(key.equalsIgnoreCase("Fuel Sensor Error"))
+  										{
+  											key ="FF!\nFUEL SENSOR ERROR";
+  										}
+  										else if(key.equalsIgnoreCase("Disparity Alert"))
+  										{
+  											key ="D!\nDISPARITY ALERT";
+  										}
+  										else if(key.equalsIgnoreCase("Impact Alert"))
+  										{
+  											key ="I!\nIMPACT ALERT";
+  										}	
+  										else if(key.equalsIgnoreCase("State Machine Alert"))
+  										{
+  											key ="SM!\nSTATE MACHINE ALERT";
+  										}
+  										else if(key.equalsIgnoreCase("Carb Alert"))
+  										{
+  											key ="C!\nCARB ALERT";
+  										}
+  										else if(key.equalsIgnoreCase("Panic Alert"))
+  										{
+  											key ="PANIC\nALERT";
+  										}
+  										else if(key.equalsIgnoreCase("Ambient Temperature"))
+  										{
+  											key ="AMB.\nAMBIENT TEMPERATURE";
+  										}
+  										else if(key.equalsIgnoreCase("Set point Temperature"))
+  										{
+  											key ="SETPT.\nSET POINT TEMPERATURE";
+  										}
+  										else if(key.equalsIgnoreCase("Return Temperature"))
+  										{
+  											key ="RET.\nRETURN TEMPERATURE";
+  										}
+  										else if(key.equalsIgnoreCase("Discharge Temperature"))
+  										{
+  											key ="DIS.\nDISCHARGE TEMPERATURE";
+  										}
+  										else if(key.equalsIgnoreCase("CLM"))
+  										{
+  											key ="CLM\nCLM";
+  										}
+  										else if(key.equalsIgnoreCase("AFAX"))
+  										{
+  											key ="AFAX\nAFAX";
+  										}
+  										else if(key.equalsIgnoreCase("Fahrenheit Minutes"))
+  										{
+  											key ="FMINS\nFAHRENHEIT MINUTES";
+  										}
+  										else if(key.equalsIgnoreCase("Coil Temperature"))
+  										{
+  											key ="COIL TEMP.\nCOIL TEMPERATURE";
+  										}
+  										else if(key.equalsIgnoreCase("ETV Position"))
+  										{
+  											key ="ETV\nETV POSITION";
+  										}
+  										else if(key.equalsIgnoreCase("Discharge Pressure"))
+  										{
+  											key ="DP\nDISCHARGE PRESSURE";
+  										}
+  										else if(key.equalsIgnoreCase("Suction Pressure"))
+  										{
+  											key ="SP\nSUCTION PRESSURE";
+  										} 				 				
+  				 				
+  				 				if( rowData.contains( key ) )
+  				 				{ 
+  				 					sames.add( key ); 
+  				 					System.out.println("Inside IF"+sames);
+  				 					}
+  				 				else { 
+  				 					diffs.add( key ); 
+  				 					System.out.println("Inside ELSE"+diffs);
+  				 					} 
+  				 				}
+  				 	
+  								}
+  				  
+  							}
+				 	
+  						}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+ 
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC6"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 6 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  				if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					System.out.println("Select all column is Selected so I Unselect it..........");
+   				}
+  				else
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					Thread.sleep(1000);
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					System.out.println("Select all column is not selected so i again unselect it............");
+  				
+  				}
+  				
+  				
+  				List<WebElement> columnsShow = driver.findElements(By.xpath(".//*[@id='divColumnHeaders']/div[1]/div/ul"));
+
+  				List<ArrayList<String>> columnsData = new ArrayList<ArrayList<String>>();
+  				
+  				
+  				String strMain = d1[i][5];
+  				String[] arrSplit4 = strMain.split(",");
+  				
+  				for(int x=0;x<arrSplit4.length;x++)
+  				{
+  					int flag=0;
+  					for(int y=1;y<=3;y++)
+  					{
+  						for(int z=1;true;z++)
+  						{
+  							if(s.isElementPresentcheck(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]"), driver))
+  							{
+  								System.out.println(x+":"+y+":"+z);
+  								//System.out.println(driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]")).getText());
+  								String temp=driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]")).getText();
+  								temp=s.cutString(temp, "\n");
+  								System.out.println(temp+":"+arrSplit4[x]);
+  								if(temp.equalsIgnoreCase(arrSplit4[x]))
+  								{
+  									flag=1;
+  									if(!driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]/label/span[2]/span")).isSelected())
+  									{
+  										driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]/label/span[2]/span")).click();
+  									}
+  									break;
+  								}
+  							}
+  							else
+  							{
+  								break;
+  							}
+  						}
+  						if(flag==1)
+  							break;
+  					}
+  					
+  				}
+  				driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  				List<WebElement> rows = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+				 	List<ArrayList<String>> rowsData = new ArrayList<ArrayList<String>>();
+				 	int cnt=3;
+				 	for(WebElement row:rows)
+				 	{
+				 	List<WebElement> rowElements = row.findElements(By.xpath("th"));
+
+				 	ArrayList<String> rowData = new ArrayList<String>();
+				 	
+				 	for(WebElement column:rowElements)
+				 	{
+				 		System.out.println("Header :"+column.getText()+":");
+				 		if(column.getText().equalsIgnoreCase(null) || column.getText().equalsIgnoreCase(" ") || column.getText().length()<1)
+				 		{
+				 			System.out.println("Blank");
+				 		}
+				 			
+				 		else
+				 		{
+				 			rowData.add(column.getText());
+				 		}
+				 			
+				 	}
+				 	System.out.println("rowData Values are"+rowData);
+				 	System.out.println("rowData  Size "+rowData.size());
+				 	
+				 	for(int rnum=0;rnum<arrSplit4.length;rnum++)
+				 	{
+				 	for(String string : rowData)
+  				{
+				 		
+				 		if(string.equalsIgnoreCase(arrSplit4[rnum]))
+				 		{
+				 			cnt++;
+				 		}
+  				}
+				 	
+				 	}
+				 	
+				 	System.out.println(cnt+"::"+arrSplit4.length);
+				 	if(cnt==arrSplit4.length)
+				    {
+				    System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@All selected Column is Present");
+	  				acop = "Dashboard displayed as expected";
+	  				node.log(LogStatus.PASS, acop);
+	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+	  				rc++;
+	  				excel.writePass(d1[i][0], counter, sheet, acop);
+	  				
+				    }
+				 	else
+				    {
+					  	System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@Selected Column Not Present");
+					  	acop = "Dashboard displayed as expected";
+					  	node.log(LogStatus.FAIL, acop);
+					  	data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+					  	rc++;
+					  	String scr = s.CaptureScreenshot();
+					  	excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					
+				    }				 	
+				 	}
+				 	driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+				 	while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  				if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  				{
+  					System.out.println("All Columns selected");
+  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnCancel"))).click();
+  					Thread.sleep(1000);
+  				}
+  				else
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					//Thread.sleep(1000);
+  					//driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				
+  				
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC7"))
+  				{
+  					try
+  					{
+  					ArrayList<String> rowData = new ArrayList<String>();
+  					ArrayList<String> rowData1 = new ArrayList<String>();
+  					
+  					System.out.println( "###################Test case 7 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  					List<WebElement> rows = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+				 	List<ArrayList<String>> rowsData = new ArrayList<ArrayList<String>>();
+				 	int cnt=3;
+				 	for(WebElement row:rows)
+				 	{
+				 	List<WebElement> rowElements = row.findElements(By.xpath("th"));
+
+				 	
+				 	
+				 	for(WebElement column:rowElements)
+				 	{
+				 		System.out.println("Header :"+column.getText()+":");
+				 		if(column.getText().equalsIgnoreCase(null) || column.getText().equalsIgnoreCase(" ") || column.getText().length()<1)
+				 		{
+				 			System.out.println("Blank");
+				 		}
+				 			
+				 		else
+				 		{
+				 			rowData.add(column.getText());
+				 		}
+				 			
+				 	}
+				 	System.out.println("rowData Values are"+rowData);
+				 	System.out.println("rowData  Size "+rowData.size());
+  				
+				 	
+				 	//End of for loop
+				 	}
+				 	driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  				if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+   				}
+  				else
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					Thread.sleep(1000);
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					
+  				}
+  				
+  				
+  				List<WebElement> columnsShow = driver.findElements(By.xpath(".//*[@id='divColumnHeaders']/div[1]/div/ul"));
+
+  				List<ArrayList<String>> columnsData = new ArrayList<ArrayList<String>>();
+  				
+  				
+  				String strMain = d1[i][5];
+  				String[] arrSplit4 = strMain.split(",");
+  				
+  				for(int x=0;x<arrSplit4.length;x++)
+  				{
+  					int flag=0;
+  					for(int y=1;y<=3;y++)
+  					{
+  						for(int z=1;true;z++)
+  						{
+  							if(s.isElementPresentcheck(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]"), driver))
+  							{
+  								System.out.println(x+":"+y+":"+z);
+  								//System.out.println(driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]")).getText());
+  								String temp=driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]")).getText();
+  								temp=s.cutString(temp, "\n");
+  								System.out.println(temp+":"+arrSplit4[x]);
+  								if(temp.equalsIgnoreCase(arrSplit4[x]))
+  								{
+  									flag=1;
+  									if(!driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]/label/span[2]/span")).isSelected())
+  									{
+  										driver.findElement(By.xpath(".//*[@id='divColumnHeaders']/div["+y+"]/div/ul/li["+z+"]/label/span[2]/span")).click();
+  									}
+  									break;
+  								}
+  							}
+  							else
+  							{
+  								break;
+  							}
+  						}
+  						if(flag==1)
+  							break;
+  					}
+  					
+  				}
+  				driver.findElement(By.xpath(Object.getProperty("ShowHideColumnCancel"))).click();
+  				
+  				List<WebElement> rows1 = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+				 	List<ArrayList<String>> rowsData1 = new ArrayList<ArrayList<String>>();
+				 	int cnt1=3;
+				 	for(WebElement row1:rows1)
+				 	{
+				 	List<WebElement> rowElements1 = row1.findElements(By.xpath("th"));
+
+				 	
+				 	
+				 	for(WebElement column:rowElements1)
+				 	{
+				 		System.out.println("Header :"+column.getText()+":");
+				 		if(column.getText().equalsIgnoreCase(null) || column.getText().equalsIgnoreCase(" ") || column.getText().length()<1)
+				 		{
+				 			System.out.println("Blank");
+				 		}
+				 			
+				 		else
+				 		{
+				 			rowData1.add(column.getText());
+				 		}
+				 			
+				 	}
+				 	System.out.println("rowData1 Values are"+rowData1);
+				 	System.out.println("rowData1  Size "+rowData1.size());
+  				
+				 	
+				 	//End of for loop
+				 	}
+				 	int flag=0;
+				 	for(int k=0;k<rowData.size();k++)
+				 	{
+				 		if(rowData.get(k).equalsIgnoreCase(rowData.get(k)))
+				 		{
+				 			System.out.println("Cancel working properly");
+				 		}
+				 		else
+				 		{
+				 			flag=1;
+				 			
+				 		}
+				 	}
+				 	if(flag==1)
+				 	{
+				 		System.out.println("#########################FAILL########################");
+				 		
+  					acop = " Show/Hide Cancel Button NOT Working as expected";
+  					node.log(LogStatus.FAIL, acop);
+	  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  				rc++;
+	  				String scr  = s.CaptureScreenshot();
+	  				excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  				System.out.println("#######################Test Case 7 Completed#######################");
+				 	}
+				 	else
+				 	{
+				 		System.out.println("###############################PASSSSSSSSSSSSSSSSSS#######################");
+				 		acop = "Show/Hide Cancel Button Working as expected";
+				 		node.log(LogStatus.PASS, acop);
+				 		data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+				 		rc++;
+				 		excel.writePass(d1[i][0], counter, sheet, acop);
+				 		System.out.println("#######################Test Case 7 Completed#######################");
+				 	}
+  					}catch(Exception e)
+  					{e.printStackTrace();}  				
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC8"))
+  				{
+  					try
+  					{
+  					boolean Test =true;
+  					System.out.println( "###################Test case 8 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("SelectAssetTags"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("AssetTag"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					if(s.isElementPresentcheck(By.xpath(Object.getProperty("DeleteTag")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("RemoveAsset")), driver)
+  							&& s.isElementPresentcheck(By.xpath(Object.getProperty("CloseTag")), driver))
+  					{
+  					System.out.println("In here...");
+  					driver.findElement(By.xpath(Object.getProperty("DeleteTag"))).click();
+  					
+  					if(s.isAlertPresent(driver))
+		  			{
+  						System.out.println(driver.switchTo().alert().getText());
+		  				driver.switchTo().alert().accept();
+		  			}
+  					Thread.sleep(3000);
+		  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+		  			Thread.sleep(2000);
+		  			String ErrorMsg1 ="AssetTag Removed Completely";
+		  			String errorMsg1 = driver.findElement(By.xpath(Object.getProperty("ErrorMsg"))).getText();
+  					if(errorMsg1.equalsIgnoreCase(ErrorMsg1))
+  					{
+  						System.out.println("****************The delete Tag Completely Working As Expected***************");
+  					}
+  					else
+  					{
+  						System.out.println("************ The delete Tag not Working***********");
+  						Test = false;
+  					}
+  					driver.findElement(By.xpath(Object.getProperty("SelectAssetTags"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+	  				driver.findElement(By.xpath(Object.getProperty("AssetTag"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+  					driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  					String Chk1=driver.findElement(By.xpath(Object.getProperty("SelectedReefer"))).getText();
+	  				System.out.println(Chk1);
+	  				System.out.println(Chk1.length());
+  					
+	  				int pt=0;
+	  				String cut="Null";
+	  			if(Chk1.contains("\n"))
+	  			{
+	  				pt=Chk1.indexOf("\n");
+	  				cut = Chk1.substring(0, pt);
+	  			}
+  					driver.findElement(By.xpath(Object.getProperty("RemoveAsset"))).click();
+  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+  					Thread.sleep(2000);
+  					if(s.isElementPresentcheck(By.xpath(Object.getProperty("ErrorMsg")), driver))
+  					{
+  					String errorMsg2 = driver.findElement(By.xpath(Object.getProperty("ErrorMsg"))).getText();
+  					System.out.println(errorMsg2);
+  					
+  					if(errorMsg2.contains(cut))
+  					{
+  						System.out.println("***********Asset Remove Tag Working as Expected**********");
+  					}
+  					else
+  					{
+  						System.out.println("**********Remove Tag Not Working***********");
+  						Test = false;
+  					}
+  					driver.findElement(By.xpath(Object.getProperty("ReeferSearch"))).sendKeys(cut);
+  					driver.findElement(By.xpath(Object.getProperty("SearchButton"))).click();
+		  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+		  			{
+  						System.out.println("inside while");
+		  				Thread.sleep(1000);
+		  			}
+		  			if(s.isElementPresentcheck(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr/td[2]/a"), driver))
+	  				{
+  					  	System.out.println("Asset Not Yet Removed Case FAILED");
+  					  Test = false;
+	  				}
+		  			else
+		  			{
+		  				System.out.println("#*#*#**#*#*#*#*#**#*Remove Tag Working Successfully**#*#*#*#*#*#*#*#*");
+		  			}
+		  			driver.findElement(By.xpath(Object.getProperty("ClearSearch"))).click();
+		  			if(s.isAlertPresent(driver))
+		  			{
+		  				driver.switchTo().alert().accept();
+		  			}		
+		  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+		  			driver.findElement(By.xpath(Object.getProperty("SelectAssetTags"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+	  				driver.findElement(By.xpath(Object.getProperty("AssetTag"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+  					driver.findElement(By.xpath(Object.getProperty("CloseTag"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+  					if(!(s.isElementPresentcheck(By.xpath(Object.getProperty("DeleteTag")), driver)) && !(s.isElementPresentcheck(By.xpath(Object.getProperty("RemoveAsset")), driver))
+  		  				&& !(s.isElementPresentcheck(By.xpath(Object.getProperty("CloseTag")), driver)))
+  		  				{
+  						System.out.println("*******Close Tag Working as Expected##########");
+  						
+  		  				}
+  					else
+  					{
+  						System.out.println("*******Close Tag NOT Working as Expected##########");
+  						Test = false;
+  						
+  					}
+  					if(Test==true)
+  					{
+  						System.out.println("#*#*#*#*#All Functions in Select Asset Tag working as Expected#*#*#*#*#");
+  						acop = "All Functions in Select Asset Tag working as Expected";
+  						node.log(LogStatus.PASS, acop);
+		  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  				rc++;
+		  				excel.writePass(d1[i][0], counter, sheet, acop);
+  					}
+  					else
+  					{
+  						System.out.println("#*#*#*#*#*#*#Select Asset Tag NOT working as Expected#*#*#*#*#*#*");
+  						acop = " Select Asset Tag NOT working as Expected";
+  						node.log(LogStatus.FAIL, acop);
+		  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  				rc++;
+		  				String scr = s.CaptureScreenshot();
+		  				excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					}
+  					}
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+  				
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC9"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 9 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  				if(s.isElementPresentcheck(By.xpath(Object.getProperty("ErrorMsg")), driver))
+  				{
+  					String errormsg =driver.findElement(By.xpath(Object.getProperty("ErrorMsg"))).getText();
+  					String errormsg1 ="Please select a Asset";
+  					if(errormsg.equalsIgnoreCase(errormsg1))
+  					{
+  						System.out.println("Error Message Matching");
+  					}
+  					else
+  					{
+  						System.out.println("Error Msg Missmatch");
+  					}
+  				}
+  				else
+  				{
+  					System.out.println("Error message not found");
+  				}
+  				
+  				driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  				
+  				boolean CheckActions = true;
+  				
+  				if(s.isElementPresentcheck(By.xpath(Object.getProperty("SetLease")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AsignCustomer")), driver)
+  					&& s.isElementPresentcheck(By.xpath(Object.getProperty("AdminCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("SetMilage")), driver)
+  					&& s.isElementPresentcheck(By.xpath(Object.getProperty("ClearAlarms")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("OffSeason")), driver)
+  					&& s.isElementPresentcheck(By.xpath(Object.getProperty("ReadAllIntelliset")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("TimeoutCommands")), driver)
+  					&& s.isElementPresentcheck(By.xpath(Object.getProperty("DoorAlarmCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("MicroRead")), driver)) 
+  				{
+  					System.out.println("All Elements are Present in MoreActions");
+  					
+  				//	
+  					
+  					WebElement moreActionsList = driver.findElement(By.xpath(".//*[@id='btn-moreaction-cmd']/div/ul"));
+						List<WebElement> moreActions = moreActionsList.findElements(By.tagName("li"));
+						
+						ArrayList<String> Actions = new ArrayList<String>();
+						
+						for(WebElement row : moreActions)
+  				 	{
+  				 		if(!row.getText().equalsIgnoreCase(" "))
+  				 			Actions.add(row.getText().toString());
+  				 	}
+  					
+  						for(String string: Actions)
+  						{
+  							
+  							switch(string)
+  							{
+  							case "Set Lease On / Off":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SetLease"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("SetLeaseOn")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("SetLeaseOff")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("LeaseSendCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("LeaseCancel")), driver))
+  								{
+  									System.out.println("####################Set Lease Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Set Lease NOT Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								driver.findElement(By.xpath(Object.getProperty("LeaseCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							
+  							case "Assign / De-Assign Customer":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("AsignCustomer"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("AssignCustomer")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("DeAssignCusntomer")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("AssignSendCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AssignCancel")), driver))
+	  								{
+	  									System.out.println("####################Assign/De-Assign Displayed as Expected###################");
+	  								}
+	  								else
+	  								{
+	  									System.out.println("####################Assign/De-Assign NOT Displayed as Expected###################");
+	  									CheckActions=false;
+	  								}
+  								driver.findElement(By.xpath(Object.getProperty("AssignCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Admin Commands":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("AdminCommand"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("AdminUnitStart")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AdminReportFreq")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("AdminMaintenanceFreq")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AdminSendCommand")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("AdminCancel")), driver))
+	  								{
+	  									System.out.println("####################Admin Command Displayed as Expected###################");
+	  								}
+	  								else
+	  								{
+	  									System.out.println("####################Admin Command NOT Displayed as Expected###################");
+	  									CheckActions=false;
+	  								}
+  								driver.findElement(By.xpath(Object.getProperty("AdminCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Set Mileage":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("SetMilage"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("Mileage")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("MileageReadDate")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("MileageCalendar")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("SetMileageCommand")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("MileageCancel")), driver))
+	  								{
+	  									System.out.println("####################Set Mileage Command Displayed as Expected###################");
+	  								}
+	  								else
+	  								{
+	  									System.out.println("####################Set Mileage Command NOT Displayed as Expected###################");
+	  									CheckActions=false;
+	  								}
+  								driver.findElement(By.xpath(Object.getProperty("MileageCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Clear Alarms":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("ClearAlarms"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("ClearAlarm")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AlarmSendCommand")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("AlarmCancel")), driver))
+  								{
+  									System.out.println("####################Clear Alarms Command Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Clear Alarms NOT Command Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								driver.findElement(By.xpath(Object.getProperty("AlarmCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Off Season":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("OffSeason"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("ExitOffSeason")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("EnterOffSeason")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("OffSeasonSendCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("OffSeasonCancel")), driver))
+  								{
+  									System.out.println("####################Off Season Command Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Off Season Command NOT Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								driver.findElement(By.xpath(Object.getProperty("OffSeasonCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Read All Intelliset":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("ReadAllIntelliset"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("ReadAllIntelliset1")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("IntellisetSendCommand")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("IntellisetCancel")), driver))
+  								{
+  									System.out.println("####################Read All Intelliset Command Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Read All Intelliset Command NOT Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								driver.findElement(By.xpath(Object.getProperty("IntellisetCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Time Out Commands":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("TimeoutCommands"))).click();
+  								if(s.isAlertPresent(driver))
+  					  			{
+  					  				driver.switchTo().alert().accept();
+  					  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  			  					{	
+  			  						System.out.println("inside while");
+  			  						Thread.sleep(1000);
+  			  					}
+  					  			}
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("ErrorMsg")), driver))
+  								{
+  					  			System.out.println("####################Time out Command Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Time out Command NOT Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Door Alarm":
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("DoorAlarmCommand"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("DisableDoorAlarm")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("EnableDoorAlarm")), driver)
+  									&& s.isElementPresentcheck(By.xpath(Object.getProperty("DoorAlarmSendCommand")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("DoorAlarmCancel")), driver))
+  								{
+  									System.out.println("####################Door Alarm Command Displayed as Expected###################");
+  								}
+  								else
+  								{
+  									System.out.println("####################Door Alarm Command Not Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								driver.findElement(By.xpath(Object.getProperty("DoorAlarmCancel"))).click();
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							case "Micro Read": 
+  							{
+  								driver.findElement(By.xpath(Object.getProperty("SelectAsset"))).click();
+  				  				driver.findElement(By.xpath(Object.getProperty("MoreActions"))).click();
+  								driver.findElement(By.xpath(Object.getProperty("MicroRead"))).click();
+  								if(s.isElementPresentcheck(By.xpath(Object.getProperty("ErrorMsg")), driver))
+  					  			{
+  					  			System.out.println("####################Micro Read Command Displayed as Expected###################");
+  					  			}
+  								else
+  								{
+  									System.out.println("####################Micro Read Command NOT Displayed as Expected###################");
+  									CheckActions=false;
+  								}
+  								Thread.sleep(5000);
+  								break;
+  							}
+  							default:
+  								break;
+  							
+  							}
+  							
+  						}
+  						if(CheckActions == true)
+  						{
+  							System.out.println("############More Actions Displaying as Expected##############");
+		  				   	acop = "More Actions Working as expected";
+		  				  node.log(LogStatus.PASS, acop);
+		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  					rc++;
+		  					excel.writePass(d1[i][0], counter, sheet, acop);
+		  					System.out.println("#######################Test Case 9 Completed#######################");
+  						}
+  						else
+  						{
+  							System.out.println("############More Actions Not Displaying as Expected##############");
+		  				   	acop = "More Actions NOT Working as expected";
+		  				  node.log(LogStatus.FAIL, acop);
+		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  					rc++;
+		  					String scr = s.CaptureScreenshot();
+		  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  					System.out.println("#######################Test Case 9 Completed#######################");
+  						}
+  				}
+  				else
+  				{
+  					System.out.println("Element Missing in More Action");
+  					acop = "More Actions Elements are Missing";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println("#######################Test Case 9 Completed#######################");
+  				}
+  					}catch(Exception e)
+  				{e.printStackTrace();}
+  				
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC10"))
+  				{
+  					
+  					try
+  					{
+  					System.out.println( "###################Test case 10 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("ColumnShowHide"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  				if(driver.findElement(By.xpath(".//*[@id='div-100-columnSettings']/div/div/div[1]/div[1]/label/span/input")).isSelected())
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnCancel"))).click();
+  					List<WebElement> rows = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+  				 	List<ArrayList<String>> rowsData = new ArrayList<ArrayList<String>>();
+
+  				 	for(WebElement row:rows)
+  				 	{
+  				 	List<WebElement> rowElements = row.findElements(By.xpath("th"));
+
+  				 	ArrayList<String> rowData = new ArrayList<String>();
+  				 	
+  				 	for(WebElement column:rowElements)
+  				 	{
+  				 		if(!column.getText().equalsIgnoreCase(" "))
+  				 			rowData.add(column.getText().toString());
+  				 	}
+  				 	System.out.println("rowData Values are"+rowData);
+  				 	System.out.println("rowData  Size "+rowData.size());
+  				 	String strMain = d1[i][5];
+	  				String[] arrSplit4 = strMain.split(",");
+	  				
+	  				int cnt = 0;
+  				   
+	  				for(int rnum=0;rnum<arrSplit4.length;rnum++)
+	  				{
+		  				for(String string : rowData)
+		  				{
+		  					if(string.equalsIgnoreCase(arrSplit4[rnum]))
+		  					{
+		  						cnt++;
+		  						System.out.println(arrSplit4[rnum]+" is present...");
+		  					}
+		  					//System.out.println(cnt+"::"+arrSplit4.length);
+		  				}
+		  				//System.out.println(cnt+"::"+arrSplit4.length);
+  				   }
+	  				System.out.println(cnt+"::"+arrSplit4.length);
+	  				if(cnt==arrSplit4.length)
+  				    {
+  				    	System.out.println("All Column is Present");
+		  				acop = "Dashboard displayed as expected";
+		  				node.log(LogStatus.PASS, acop);
+		  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  				rc++;
+		  				excel.writePass(d1[i][0], counter, sheet, acop);
+		  				
+  				    }
+  				  else
+  				    {
+  					  	System.out.println("Column Not Present");
+	  				   	acop = "Dashboard NOT displayed as expected";
+	  				   	node.log(LogStatus.FAIL, acop);
+	  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  					rc++;
+	  					String scr = s.CaptureScreenshot();
+	  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  					
+  				    }
+  				    
+  				 	}
+  				 	System.out.println( "###################Test case 10 execution completed############################");
+  				}
+  				else
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("selectallcolumn1"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("ShowHideColumnApply"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  					{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+  					}
+	  				Thread.sleep(3000);
+	  				List<WebElement> rows = driver.findElements(By.xpath(".//*[@id='div-100-datagrid']/div/table[1]/thead/tr[2]"));
+  				 	List<ArrayList<String>> rowsData = new ArrayList<ArrayList<String>>();
+
+  				 	for(WebElement row:rows)
+  				 	{
+  				 	List<WebElement> rowElements = row.findElements(By.xpath("th"));
+
+  				 	ArrayList<String> rowData = new ArrayList<String>();
+  				 	
+  				 	for(WebElement column:rowElements)
+  				 	{
+  				 		if(!column.getText().equalsIgnoreCase(" "))
+  				 			rowData.add(column.getText().toString());
+  				 	}
+  				 	System.out.println("rowData Values are"+rowData);
+  				 	System.out.println("rowData  Size "+rowData.size());
+  				 	String strMain = d1[i][5];
+	  				String[] arrSplit4 = strMain.split(",");
+	  				
+	  				int cnt = 0;
+  				   
+	  				for(int rnum=0;rnum<arrSplit4.length;rnum++)
+	  				{
+		  				for(String string : rowData)
+		  				{
+		  					if(string.equalsIgnoreCase(arrSplit4[rnum]))
+		  					{
+		  						cnt++;
+		  						System.out.println(arrSplit4[rnum]+" is present...");
+		  					}
+		  					
+		  				}
+		  				
+  				   }
+	  				System.out.println(cnt+"::"+arrSplit4.length);
+	  				if(cnt==arrSplit4.length)
+  				    {
+  				    	System.out.println("All Column is Present");
+		  				acop = "Dashboard displayed as expected";
+		  				node.log(LogStatus.PASS, acop);
+		  				data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  				rc++;
+		  				excel.writePass(d1[i][0], counter, sheet, acop);
+		  				
+  				    }
+  				  else
+  				    {
+  					  	System.out.println("Column Not Present");
+	  				   	acop = "Dashboard NOT displayed as expected";
+	  				   	node.log(LogStatus.FAIL, acop);
+	  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  					rc++;
+	  					String scr = s.CaptureScreenshot();
+	  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  					
+  				    }
+  				    
+  				 	}
+  				 	System.out.println( "###################Test case 10 execution completed############################");
+  					
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  					
+
+  					
+
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC11"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 11 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  				{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("RefreshIcon"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				if(!(s.isElementPresentcheck(By.xpath(Object.getProperty("ReeferSearch")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("EditDateRange")), driver)) || 
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("RefreshIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("PrintIcon")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("PageNumber")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ExcelDownload")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("DateTimeIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("TemperatureIcon")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("FuelLevelIcon")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("DistanceCalcIcon")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("ExcelDownloadAll")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("StatusShowFilter")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("SelectAssetTags")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ColumnShowHide")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("ControlProbeIcon")), driver)) || (!s.isElementPresentcheck(By.xpath(Object.getProperty("SearchButton")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("StatusDashboard")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ViewMap")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("pollCommands")), driver)) || !(s.isElementPresentcheck(By.xpath(Object.getProperty("ControlCommands")), driver)) ||
+	  					!(s.isElementPresentcheck(By.xpath(Object.getProperty("MoreActions")), driver)))
+  				{
+  					System.out.println("Page not Re-loaded Successfully");
+  					acop = "Reefers Status Page Re-Loading Failed";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});  
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 11 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Page Re-loaded Successfully");
+  					acop = "Reefers Status Page Re-Loaded Successfully";
+  					node.log(LogStatus.PASS, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 11 execution completed############################");
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				
+  				}
+  				
+  				
+  				if (d1[i][0].equalsIgnoreCase("TC12"))
+                {
+  					try
+  					{                     
+  						System.out.println( "###################Test case 12 is executing############################");
+                       Thread.sleep(4000);
+                       driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {
+                             
+                              System.out.println("inside while");
+                              Thread.sleep(1000);
+                       }
+                       driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {
+                             
+                              System.out.println("inside while");
+                              Thread.sleep(1000);
+                       }
+                      
+                       driver.findElement(By.xpath(".//*[@id='table-col-100--all-none']/label/span[2]/span")).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {
+                             
+                              System.out.println("inside while");
+                              Thread.sleep(1000);
+                       }
+                      
+                       String parentHandle = driver.getWindowHandle(); // get the current window handle
+                    System.out.println(parentHandle);               //Prints the parent window handle
+                    driver.findElement(By.xpath(Object.getProperty("ViewMap"))).click();
+                    Thread.sleep(4000);//Clicking on this window
+                    
+                    for (String winHandle : driver.getWindowHandles()) 
+                    { //Gets the new window handle
+                        System.out.println(winHandle);
+                        driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)             
+                    }
+                    /*WebDriverWait wait = new WebDriverWait(driver, 10); html/body/div[2]/div[2]/div/div/h1
+                    wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[1]/h2"))));*/
+                    int count=0;
+                    while(!s.isElementPresentcheck(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div/h2"), driver))
+                    {
+                    	count++;
+                    	Thread.sleep(2000);
+                    	if(count>=10)
+                    	{
+                    		break;
+                    	}
+                    }
+                    
+                    
+                    
+                   /* for (String winHandle : driver.getWindowHandles()) { //Gets the new window handle
+                        System.out.println(winHandle);
+                        driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)             
+                    }*/
+                  if(s.isElementPresentcheck(By.xpath(Object.getProperty("MapVerification")),driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("PrintMap")),driver)
+                                    && s.isElementPresentcheck(By.xpath(Object.getProperty("ShowAll")),driver))
+                              {
+                              System.out.println("All the filds are present in the Map view");
+                                     acop = "Status Map View Loaded Successfully";
+                                     node.log(LogStatus.PASS, acop);
+                                     data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                                     rc++;
+                                     excel.writePass(d1[i][0], counter, sheet, acop);
+                              }
+                  else
+                  {
+                         System.out.println("Mismatch Found");
+                       acop = "Status Map View not Loaded Successfully";
+                       node.log(LogStatus.FAIL, acop);
+                       data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                       rc++;
+                       String scr = s.CaptureScreenshot();
+                       excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+                  }
+                  
+                 driver.findElement(By.xpath(Object.getProperty("PrintMap"))).click();
+                Thread.sleep(3000);
+                Robot r = new Robot();
+                r.keyPress(KeyEvent.VK_ESCAPE);
+                Thread.sleep(200);
+                r.keyRelease(KeyEvent.VK_ESCAPE);
+                Thread.sleep(2000);
+                 driver.findElement(By.xpath(".//*[@id='map_list']/ul/li[1]/a")).click();
+                Thread.sleep(1000);           
+                 driver.findElement(By.xpath(Object.getProperty("ShowAll"))).click();
+                
+                Thread.sleep(2000);
+                 if(s.isElementPresentcheck(By.xpath(Object.getProperty("MapVerification")),driver))
+                {
+                       System.out.println("Show All is working as expected");
+                       acop = "Status Map View all the asset maps Loaded Successfully";
+                       node.log(LogStatus.PASS, acop);
+                       data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                       rc++;
+                       excel.writePass(d1[i][0], counter, sheet, acop);
+                }
+                else
+                {
+                       System.out.println("Show All is not working");
+                       acop = "Status Show All is not working";
+                       node.log(LogStatus.FAIL, acop);
+                       data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                       rc++;
+                       String scr = s.CaptureScreenshot();
+                       excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+                }
+                 driver.findElement(By.xpath(".//*[@id='map']/div/div[11]/div[2]/div[1]")).click();
+                Thread.sleep(5000);
+                 driver.findElement(By.xpath(".//*[@id='map']/div/div[11]/div[3]/div")).click();
+                Thread.sleep(5000);
+               
+                //Now your driver works on the current new handle
+                //Do some work here.....
+                //Time to go back to parent window
+                    driver.close();                           // close newly opened window when done with it
+                    driver.switchTo().window(parentHandle);
+                  System.out.println( "###################Test case 12 Execution completed############################");
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+                }
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC13"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 13 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("PrintIcon"))).click();
+  					Thread.sleep(5000);
+  					ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+  					
+  					System.out.println(tabs2.get(0));
+  					System.out.println(driver.getWindowHandle());
+  					
+  					driver.switchTo().window(tabs2.get(1));
+  					
+  					System.out.println(tabs2.get(1));
+  					System.out.println(driver.getWindowHandle());
+  					
+  				if(s.isElementPresentcheck(By.xpath("html/body/table"), driver))
+  				{
+  					System.out.println("Print page displayed");
+  					acop = "Print page displayed as expected";
+  					node.log(LogStatus.PASS, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  						System.out.println( "###################Test case 13 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Print page not displayed");
+  					acop = "Print Page not displayed as expected";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 13 execution completed############################");
+  				}
+  					//Robot robot = new Robot();
+  					robot.keyPress(KeyEvent.VK_ESCAPE);
+  					Thread.sleep(200);
+  					robot.keyRelease(KeyEvent.VK_ESCAPE);
+  					driver.close(); 
+  					driver.switchTo().window(tabs2.get(0));
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  					
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC14"))
+  				{
+  					try
+  					{
+  					ArrayList<String> tr=new ArrayList<String>();
+  				 	int pageSize=0,recordsCount=0;
+  				 	
+  					System.out.println( "###################Test case 14 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("ExcelDownload"))).click();
+  					
+  					WebElement ele = driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']"));
+	  			 	System.out.println(ele.getTagName());
+	  			 	List<WebElement>page=ele.findElements(By.tagName("tr"));
+	  			 	System.out.println("PageSize : "+page.size());
+	  			 	//System.out.println("PageSize : "+pageSize);
+	  			 	pageSize=page.size();
+	  			 	try
+	  			 	{
+	  			 	BufferedReader reader = new BufferedReader(new FileReader("\\\\amxserver\\amx-share\\STW_QA\\Rtweb Automation\\Downloaded Excel\\ReeferReport.xls"));
+	  			 	String line;
+	  			 	
+	  			 	int m=0;
+	  			 	while ((line = reader.readLine()) != null)
+	  			 	{
+	  			 	//System.out.println(line);
+	  			 	
+	  			 	if(line.contains("<tr"))
+	  			 	tr.add(line);
+	  			  //System.out.println(records.get(i));
+	  			 	m++;
+	  			 	}
+	  			 	reader.close();
+	  			 	
+	  			 	recordsCount=tr.size()-2;
+	  			  System.out.println(recordsCount);
+	  			 	}
+	  			 	catch (Exception e)
+	  			 	{
+	  			 	
+	  			 	e.printStackTrace();
+	  			 	
+	  			 	}
+	  			  System.out.println(recordsCount+":"+pageSize);
+	  			 	if(recordsCount == pageSize)
+	  			 	{
+	  			 		System.out.println("Reocrds count matching... Pass");
+	  			 	
+			  			acop = "Reefers Status - Print window opened successfully";
+			  			node.log(LogStatus.PASS, acop);
+			  			data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+			  			rc++;
+			  			excel.writePass(d1[i][0], counter, sheet, acop);
+			  			System.out.println( "###################Test case 14 Execution completed############################");
+	  			 	}
+	  			 	else
+	  			 	{
+		  			 	System.out.println("Records count mismatch... Fail");
+		  			 	acop = "Count mismatch";
+		  			 	node.log(LogStatus.FAIL, acop);
+		  			 	data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  			 	rc++;
+		  			 	String scr = s.CaptureScreenshot();
+		  			 	excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  			 	System.out.println( "###################Test case 14 execution completed############################");
+	  			 	}	  	
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+  				
+  				/*if(d1[i][0].equalsIgnoreCase("TC15"))
+  				{
+  					ArrayList<String> tr=new ArrayList<String>();
+  				 	int pageSize=0,recordsCount=0;
+  				 	int chkIndex=0;
+  				 	String Records="Null";
+  				 	
+  					System.out.println( "###################Test case 15 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				String TotalPages =driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+  				if(TotalPages.contains(" of "))
+  				{
+  					chkIndex=TotalPages.indexOf(" of ");
+  					Records = TotalPages.substring(chkIndex+4);
+  					System.out.println(Records);
+  				}
+  				//Integer.parseInt(myBuilderOrBuffer.toString());
+  				int Record = Integer.parseInt(Records);
+  					driver.findElement(By.xpath(Object.getProperty("ExcelDownloadAll"))).click();
+  					Thread.sleep(3000);
+	  			 	try
+	  			 	{
+	  			 	BufferedReader reader = new BufferedReader(new FileReader("\\\\amxserver\\amx-share\\STW_QA\\Rtweb Automation\\Downloaded Excel\\StatusReport-All.csv"));
+	  			 	String line;
+	  			 	
+	  			 	int m=0;
+	  			 	while ((line = reader.readLine()) != null)
+	  			 	{
+	  			 	//System.out.println(line);
+	  			 	
+	  			 	if(line.contains("<tr"))
+	  			 	tr.add(line);
+	  			  //System.out.println(records.get(i));
+	  			 	m++;
+	  			 	}
+	  			 	reader.close();
+	  			 	
+	  			 	recordsCount=tr.size()-1;
+	  			  System.out.println(recordsCount);
+	  			 	}
+	  			 	catch (Exception e)
+	  			 	{
+	  			 	
+	  			 	e.printStackTrace();
+	  			 	
+	  			 	}
+	  			  System.out.println(recordsCount+":"+pageSize);
+	  			  if(Record>10000)
+	  			  {
+	  				  Record = 10000;
+	  			  }
+	  			 	if(recordsCount == Record)
+	  			 	{
+	  			 		System.out.println("Reocrds count matching... Pass");
+	  			 	
+			  			acop = "Reefers Status Download-All downloaded successfully";
+			  			data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+			  			rc++;
+			  			excel.writePass(d1[i][0], counter, sheet, acop);
+			  			System.out.println( "###################Test case 15 Execution completed############################");
+	  			 	}
+	  			 	else
+	  			 	{
+		  			 	System.out.println("Records count mismatch... Fail");
+		  			 	acop = "Count mismatch";
+		  			 	data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  			 	rc++;
+		  			 	excel.writeFail(d1[i][0], counter, sheet, acop);
+		  			 	System.out.println( "###################Test case 15 execution completed############################");
+	  			 	}	  	
+  				}
+  				//End of Test Case 15
+  				
+  				//Test Case 16
+  				if(d1[i][0].equalsIgnoreCase("TC16"))
+  				{
+  					System.out.println( "###################Test case 16 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				if(s.unitofMeasure(driver, Object, Object.getProperty("Reefers") ,Object.getProperty("Status"), Object.getProperty("DateTimeIcon"), Object.getProperty("TimeTooltip"), Object.getProperty("TimeTooltipval"), Object.getProperty("Timezone")))
+  				{
+  					System.out.println("Time zone Displayed Successfully");
+  					acop = "Time zone displayed as expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 16 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Time zone not Displayed ");
+  					acop = "Time zone not displayed as expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					excel.writeFail(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 16 execution completed############################");
+  				}
+  					
+  				}*/
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC17"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 17 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  				{
+  					System.out.println("inside while");
+  					Thread.sleep(1000);
+  				}
+  				if(s.unitofMeasure(driver, Object, Object.getProperty("Reefers"), Object.getProperty("Status"), Object.getProperty("TemperatureIcon"), Object.getProperty("TempTooltip"), Object.getProperty("TempTooltipval"), Object.getProperty("TemperatureUnit")))
+  				{
+  					System.out.println("Temperature Unit Displayed Successfully");
+  					acop = "Temperature Unit displayed as expected";
+  					node.log(LogStatus.PASS, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 17 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Temperature Unit not Displayed ");
+  					acop = "Temperature Unit not displayed as expected";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 17 execution completed############################");
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC18"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 18 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  				{
+  					System.out.println("inside while");
+  					Thread.sleep(1000);
+  				}
+  				if(s.unitofMeasure(driver, Object, Object.getProperty("Reefers"), Object.getProperty("Status"), Object.getProperty("FuelLevelIcon"), Object.getProperty("FuelTooltip"), Object.getProperty("FuelTooltipval"), Object.getProperty("FuelLevel")))
+  				{
+  					System.out.println("Fuel Level Displayed Successfully");
+  					acop = "Fuel Level displayed as expected";
+  					node.log(LogStatus.PASS, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 18 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Fuel Level not Displayed ");
+  					acop = "Fuel Level not displayed as expected";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 18 execution completed############################");
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC19"))
+  				{
+  					try
+  					{
+  					System.out.println( "###################Test case 19 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  				{
+  					System.out.println("inside while");
+  					Thread.sleep(1000);
+  				}
+  				if(s.unitofMeasure(driver, Object, Object.getProperty("Reefers"), Object.getProperty("Status"), Object.getProperty("DistanceCalcIcon"), Object.getProperty("DistanceTooltip"), Object.getProperty("DistanceTooltipval"), Object.getProperty("DistanceUnit")))
+  				{
+  					System.out.println("Distance Unit Displayed Successfully");
+  					acop = "Distance Unit displayed as expected";
+  					node.log(LogStatus.PASS, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 19 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Distance Unit not Displayed ");
+  					acop = "Distance Unit not displayed as expected";
+  					node.log(LogStatus.FAIL, acop);
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 19 execution completed############################");
+  				}
+  					}catch(Exception e)
+  					{e.printStackTrace();}
+  				}
+  				
+  				
+  				if(d1[i][0].equalsIgnoreCase("TC20"))
+  				{
+  					System.out.println( "###################Test case 20 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					Thread.sleep(3000);
+  					
+  				if((s.isElementPresentcheck(By.xpath(Object.getProperty("ControlProbeIcon")), driver)))
+  				{
+  					
+  					System.out.println("Control Probe loaded Successfully");
+  					acop = "Control Probe displayed as expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 20 execution completed############################");
+  				}
+  				else
+  				{	
+  					System.out.println("Control Probe not loaded Successfully");
+  					acop = "Control Probe not displayed as expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 20 execution completed############################");
+  				}
+  				}
+  				//End of Test Case 20
+  				
+  				//Test Case 21
+  				if(d1[i][0].equalsIgnoreCase("TC21"))
+  				{
+  					System.out.println( "###################Test case 21 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("ReeferTrak"))).click();
+  				if(s.isElementPresentcheck(By.xpath(Object.getProperty("Settings")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("Logout")), driver))
+  				{
+  					driver.findElement(By.xpath(Object.getProperty("Settings"))).click();	
+  					if(s.isElementPresentcheck(By.xpath(Object.getProperty("Displaysettings")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("UserSettings")), driver)
+  						&& s.isElementPresentcheck(By.xpath(Object.getProperty("Notificationsettings")), driver))
+  					{
+  						driver.findElement(By.xpath(Object.getProperty("ReeferTrak"))).click();
+  						driver.findElement(By.xpath(Object.getProperty("Logout"))).click();
+  						if(s.isAlertPresent(driver))
+  			  			{
+  			  				driver.switchTo().alert().accept();
+  			  			}		
+  			  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+  	  					{
+  	  						System.out.println("inside while");
+  	  						Thread.sleep(1000);
+  	  					}
+  			  		String url = driver.getCurrentUrl();
+  			  		String URL ="http://192.168.1.218:1100/AJAX/RT-WEB/index.jsp?strMsg=1";
+  			  		if(url.equalsIgnoreCase(URL))
+  			  		{
+  			  			System.out.println("Logout Successful");
+  			  		acop = "Loggedout Successfully";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 21 execution completed############################");
+  			  		}
+  			  		else
+  			  		{
+  			  			System.out.println("Logout Failed");
+  			  		acop = "Logout Failed";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 21 execution completed############################");
+  			  		}
+  			  		
+  					}
+  					else
+  					{
+  						System.out.println("Settings Page not Displayed");
+  						acop = "Settings Page not Displayed as Expected";
+	  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+	  					rc++;
+	  					String scr = s.CaptureScreenshot();
+	  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+	  					System.out.println( "###################Test case 21 execution completed############################");
+  					}
+  				}
+  				else
+  				{
+  					System.out.println("ReeferTrak Submenu Not Present");
+  					acop = "ReeferTrak Submenu Not Present";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 21 execution completed############################");
+  				}
+  				s.dologin(driver, d1[0][2], d1[0][3]);
+  				//driver.findElement(By.xpath(Object.getProperty("Reefers"))).click();
+  				
+  				}
+  				//End of Test Case 21 
+  				
+  				//Test Case 22
+  				if(d1[i][0].equalsIgnoreCase("TC22"))
+  				{
+  					System.out.println( "###################Test case 22 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+				{
+					System.out.println("inside while");
+					Thread.sleep(1000);
+				}
+						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+				{
+					System.out.println("inside while");
+					Thread.sleep(1000);
+				}
+					
+					
+					boolean strFilterResult = false;
+				 	strFilterResult = Cs.checkSortedValue(driver, Object, "100");
+				 	System.out.println("<<<<<<<<<<<<<<<<<<<<<Reefers Status>>>>>>>>>>>>>"+strFilterResult);
+				 	if (strFilterResult == true)
+				 	{
+				 		System.out.println("PASSSSSSSSSSSSSS");
+				 		acop = "Column Sorted Successfully";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 22 execution completed############################");
+				 	}
+				 	else
+				 	{
+				 		System.out.println("FAILLLLLLLLLLLLLLLLL");
+				 		acop = "Column Sorting Failed";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+  					rc++;
+  					String scr = s.CaptureScreenshot();
+  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+  					System.out.println( "###################Test case 22 execution completed############################");
+				 	}
+						
+				}
+  				//End of Test Case 22  
+  				
+  				//Test Case 23
+  				if(d1[i][0].equalsIgnoreCase("TC23"))
+  				{
+  					System.out.println( "###################Test case 23 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("TermsofUse"))).click();
+  				
+  				ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+					
+					System.out.println(tabs2.get(0));
+					System.out.println(driver.getWindowHandle());
+					
+					for (String winHandle : driver.getWindowHandles()) 
+                { //Gets the new window handle
+                    System.out.println(winHandle);
+                    driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)             
+                }
+                /*WebDriverWait wait = new WebDriverWait(driver, 10); html/body/div[2]/div[2]/div/div/h1
+                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[1]/h2"))));*/
+                int count=0;
+                while(!s.isElementPresentcheck(By.xpath("html/body/div[2]/div[2]/div/div/h1"), driver))
+                {
+                	count++;
+                	Thread.sleep(2000);
+                	if(count>=10)
+                	{
+                		break;
+                	}
+                }
+					
+					
+					//driver.switchTo().window(tabs2.get(1));
+					
+					System.out.println(tabs2.get(1));
+					System.out.println(driver.getWindowHandle());
+					
+					String url = driver.getCurrentUrl();
+					String URL ="http://www.orbcomm.com/en/terms-and-conditions";
+					if(url.equalsIgnoreCase(URL))
+					{
+						System.out.println("Terms and Condition Page displayed Successfully");
+						acop = "Terms and Condition Page displayed Successfully";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 23 execution completed############################");
+					}
+					else
+					{
+						System.out.println("Terms and Condition Page Not displayed ");
+						acop = "Terms and Condition Page Not displayed as Expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 23 execution completed############################");
+					}
+					driver.close(); 
+					driver.switchTo().window(tabs2.get(0));
+  				
+  				}
+  				//End of Test Case 23
+  				
+  				//Test Case 24
+  				if(d1[i][0].equalsIgnoreCase("TC24"))
+  				{
+  					System.out.println( "###################Test case 24 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("Privacypolicy"))).click();
+  				
+  				ArrayList<String> tabs2 = new ArrayList<String> (driver.getWindowHandles());
+					
+					System.out.println(tabs2.get(0));
+					System.out.println(driver.getWindowHandle());
+					
+					for (String winHandle : driver.getWindowHandles()) 
+                { //Gets the new window handle
+                    System.out.println(winHandle);
+                    driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)             
+                }
+                /*WebDriverWait wait = new WebDriverWait(driver, 10); html/body/div[2]/div[2]/div/div/h1
+                wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[1]/h2"))));*/
+                int count=0;
+                while(!s.isElementPresentcheck(By.xpath("html/body/div[2]/div[3]/div"), driver))
+                {
+                	count++;
+                	Thread.sleep(2000);
+                	if(count>=10)
+                	{
+                		break;
+                	}
+                }
+					
+					//driver.switchTo().window(tabs2.get(1)); html/body/div[2]/div[3]/div      
+					
+					System.out.println(tabs2.get(1));
+					System.out.println(driver.getWindowHandle());
+					
+					String url = driver.getCurrentUrl();
+					String URL ="http://www.orbcomm.com/en/privacy-policy";
+					if(url.equalsIgnoreCase(URL))
+					{
+						System.out.println("Privacy policy Page displayed Successfully");
+						acop = "Privacy policy Page displayed Successfully";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 24 execution completed############################");
+					}
+					else
+					{
+						System.out.println("Privacy policy Page Not displayed ");
+						acop = "Privacy policy Page Not displayed as Expected";
+  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+  					rc++;
+  					excel.writePass(d1[i][0], counter, sheet, acop);
+  					System.out.println( "###################Test case 24 execution completed############################");
+					}
+					driver.close(); 
+					driver.switchTo().window(tabs2.get(0));
+  				
+  				}
+  				//End of Test Case 24
+  				
+  				//Test Case 25
+  				if(d1[i][0].equalsIgnoreCase("TC25"))
+  				{
+  					System.out.println( "###################Test case 25 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+				{
+					System.out.println("inside while");
+					Thread.sleep(1000);
+				}
+						driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+				{
+					System.out.println("inside while");
+					Thread.sleep(1000);
+				}
+						Thread.sleep(1000);	
+						
+						WebElement Pagination = driver.findElement(By.xpath(".//*[@id='pagination-holder']/ul"));
+						//List<WebElement> PageGroup = Pagination.findElements(By.tagName("ul"));
+						List<WebElement> PageList = Pagination.findElements(By.tagName("li"));
+						System.out.println("Size of the page"+PageList.size());
+						
+						for(int j=0;j<PageList.size();j++)
+						{
+							
+							System.out.println(PageList.get(j).getText());
+						}
+						
+						if(PageList.get(0).getText().equalsIgnoreCase("Prev") && PageList.get(PageList.size()-2).getText().equalsIgnoreCase("Next") && PageList.get(PageList.size()-1).getText().contains("Go To Page"))
+						{
+							
+		  					
+							System.out.println("Pagination Displayed Successfully");
+							//System.out.println(Object.getProperty("DAPageDrpdown"));
+							if(d1[i][5].isEmpty())
+							{
+								acop = "Pagination Displayed as expected";
+	  		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+	  		  					rc++;
+	  		  					excel.writePass(d1[i][0], counter, sheet, acop);
+	  		  					System.out.println( "###################Test case 25 execution completed3############################");
+							}
+							else
+							{
+								driver.findElement(By.xpath(Object.getProperty("PageDrpdown"))).click();
+	  							Thread.sleep(2000);
+	  							driver.findElement(By.xpath(Object.getProperty("PageValue"))).sendKeys(d1[i][5]);
+	  							driver.findElement(By.xpath(Object.getProperty("PageSelect"))).click();
+	  							while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  							{
+	  								System.out.println("inside while");
+	  								Thread.sleep(1000);
+	  							}
+	  							Pagination = driver.findElement(By.xpath(".//*[@id='pagination-holder']/ul"));
+	  							PageList = Pagination.findElements(By.tagName("li"));
+	  							System.out.println(PageList.size());
+	  							for(int j=0;j<PageList.size();j++)
+	  							{
+	  								//PageList.get(j).getAttribute("class");
+		  							if(PageList.get(j).getText().equalsIgnoreCase(d1[i][5]))
+									{
+		  								if(PageList.get(j).getAttribute("class").equalsIgnoreCase("active"))
+		  								{
+		  										acop = "Selected Page Displayed as expected";
+		  			  		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  			  		  					rc++;
+		  			  		  					excel.writePass(d1[i][0], counter, sheet, acop);
+		  			  		  					System.out.println( "###################Test case 25 execution completed1############################");
+		  			  		  					break;
+		  									}
+		  									else
+		  									{
+		  										System.out.println("Current Page doesnot match the Page which is selected ");
+		  			  		  					acop = "Pagination not displayed as expected";
+		  			  		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  			  		  					rc++;
+		  			  		  					String scr = s.CaptureScreenshot();
+		  			  		  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  			  		  					System.out.println( "###################Test case 25 execution completed2############################");
+		  			  		  					break;
+		  									}
+		  								}
+		  							}
+							}
+							
+						}
+						else
+						{
+							System.out.println("Pagination not Displayed ");
+		  					acop = "Pagination not displayed as expected";
+		  					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  					rc++;
+		  					String scr = s.CaptureScreenshot();
+		  					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  					System.out.println( "###################Test case 25 execution completed4############################");
+						}
+  				}
+  				//End of Test Case 25
+  				
+  				//Test Case 26
+  				/*if(d1[i][0].equalsIgnoreCase("TC26"))
+	  			{
+	  			 	System.out.println( "###################Test case 26 is executing############################");
+	  			 	Thread.sleep(4000);
+	  			  driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+	  			  driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+	  			  driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+	  			  while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  			 	{
+	  			 	
+	  			 	System.out.println("inside while");
+	  			 	Thread.sleep(1000);
+	  			 	}
+	  			  driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+	  			  while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  			 	{
+	  			 	System.out.println("inside while");
+	  			 	Thread.sleep(1000);
+	  			 	}
+		  			Select se = new Select(driver.findElement(By.id("per-page__select")));
+		  			List<WebElement> l = se.getOptions();
+		  			l.size();
+		  			System.out.println("No.of Rows in dropdown"+l.size());
+		  			driver.findElement(By.xpath(Object.getProperty("Recordsperpage"))).click();
+		  			Thread.sleep(1000);
+		  			String[] dropVal = new String[l.size()+1];
+
+	  			for(int click=1;click<=l.size();click++)
+	  			{
+	  			String dropDownVal = driver.findElement(By.xpath(".//*[@id='per_page__select_chosen']/div/ul/li["+click+"]")).getText();
+	  			dropVal[click] = dropDownVal;
+	  			System.out.println(dropVal[click]);
+	  			}
+	  			if (dropVal[1].equalsIgnoreCase("10 per page") && dropVal[2].equalsIgnoreCase("20 per page") && dropVal[3].equalsIgnoreCase("50 per page") &&
+	  			dropVal[4].equalsIgnoreCase("100 per page") && dropVal[5].equalsIgnoreCase("200 per page") && dropVal[6].equalsIgnoreCase("300 per page"))
+	  			{
+	  			System.out.println("All the fields are present successfully.");
+	  			}
+	  			for(int sel=1;sel<=l.size();sel++)
+	  			{
+	  				/////////////////////Door Alarm has only 28 Records so here we are breaking the loop////////////////////
+	  				//if(sel==3)
+	  				//{
+	  				//	break;
+	  				//} 
+	  				////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		  			String [] pageCnt = dropVal[sel].split(" ");
+		  			
+		  			driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+		  			driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+		  			driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+		  			driver.findElement(By.xpath(Object.getProperty("Recordsperpage"))).click();
+		  			Thread.sleep(2000);
+		  			driver.findElement(By.xpath(".//*[@id='per_page__select_chosen']/div/ul/li["+sel+"]")).click();
+		  		while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+		  		{	
+		  			 System.out.println("inside while");
+		  			 Thread.sleep(1000);
+		  		}
+		  			WebElement ele = driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']"));
+		  			System.out.println(ele.getTagName());
+		  			List<WebElement>page=ele.findElements(By.tagName("tr"));
+		  			System.out.println("PageSize : "+page.size());
+		  			System.out.println(pageCnt[0]+"="+page.size());
+		  			 if (pageCnt[0].equals(""+page.size()))
+		  			 {
+		  				 System.out.println(page.size()+" Per page loaded successfully");
+		  				 driver.findElement(By.xpath(Object.getProperty("Recordsperpage"))).click();
+		  				 driver.findElement(By.xpath(Object.getProperty("10PerPage"))).click();
+		  				 acop = page.size()+" Per Page Loaded successfully";
+		  				 data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+		  				 rc++;
+		  				 excel.writePass(d1[i][0], counter, sheet, acop);
+		  				 System.out.println( "###################Test case 26 execution completed############################");
+		  			 }
+		  			 else
+		  			 {
+		  				 System.out.println(page.size()+" Per page not loaded");
+		  				 driver.findElement(By.xpath(Object.getProperty("Recordsperpage"))).click();
+		  				 driver.findElement(By.xpath(Object.getProperty("10PerPage"))).click();
+		  				 acop = page.size()+" Per Page not Loaded successfully";
+		  				 data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+		  				 rc++;
+		  				 excel.writeFail(d1[i][0], counter, sheet, acop);
+		  				 System.out.println( "###################Test case 26 execution completed############################");
+		  			 }
+	  			}
+  			 	
+  			 	}*/
+  				//End of Test Case 26
+  				
+  				//Test Case 27
+  				if(d1[i][0].equalsIgnoreCase("TC27"))
+                {
+                       System.out.println( "###################Test case 27 is executing############################");
+                       Thread.sleep(4000);
+                       driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       { 
+                          System.out.println("inside while");
+                          Thread.sleep(1000);
+                       }
+                       driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {  
+                          System.out.println("inside while");
+                          Thread.sleep(1000);
+                       }
+                      
+                       driver.findElement(By.xpath(".//*[@id='table-col-100--all-none']/label/span[2]/span")).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {  
+                          System.out.println("inside while");
+                          Thread.sleep(1000);
+                       }
+                       List <WebElement> selectElements= driver.findElements(By.cssSelector(".cls-checked"));
+                       System.out.println(">>>>>>>>>>>>>>>"+selectElements.size());
+                       int rowCount = 0;
+                       Map<String,String> arr = new TreeMap<>();
+                       //ArrayList <String> arrRowList = new ArrayList <String>();
+                       for(int ij=0;ij<selectElements.size();ij++)
+                       {                                                     
+                          System.out.println("id::>>"+ij+"<<"+selectElements.get(ij).getAttribute("id"));
+
+                       if( (selectElements.get(ij).isSelected())&&!(selectElements.get(ij).getAttribute("id").equalsIgnoreCase(""))&&!(selectElements.get(ij).getAttribute("id").startsWith("select-All-Column")))
+                       {
+                            System.out.println("Check box selected");
+                            rowCount = rowCount + 1;
+                            //arrRowList.add(selectElements.get(ij).getAttribute("id"));
+                            arr.put(selectElements.get(ij).getAttribute("id"), selectElements.get(ij).getAttribute("id"));
+                       }
+                       else
+                       {
+                          System.out.println("Check box NOT selected");
+                       }
+                         
+                       }
+                       System.out.println("row count:"+ rowCount);
+                       System.out.println("Map Size: "+arr.size());
+                       String chkVal = driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+                       String [] getVal = chkVal.split(" - ");
+                       System.out.println(getVal[1]);
+                       String [] finalVal = getVal[1].split(" of ");
+                       System.out.println(finalVal[0]);
+                       if (finalVal[0].equals(""+arr.size()))
+                       {
+                          System.out.println("Select All is working as expected");
+                          acop = " All None is working";
+                          data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                          rc++;
+                          excel.writePass(d1[i][0], counter, sheet, acop);
+                          System.out.println( "###################Test case 27 execution completed############################");
+                       }
+                       else
+                       {
+                    	  System.out.println("All none is not working");
+                          acop = "All none is not working as expected ";
+                          data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                          rc++;
+                          String scr = s.CaptureScreenshot();
+                          excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+                          System.out.println( "###################Test case 27 execution completed############################");
+                       }
+                }
+  				//End of Test Case 27
+  				
+  				//Test Case 28
+  				if(d1[i][0].equalsIgnoreCase("TC28"))
+  				{
+  					System.out.println( "###################Test case 28 is executing############################");
+  					driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+  					driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{	
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					
+  					driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					driver.findElement(By.xpath(Object.getProperty("ReeferSearch"))).sendKeys(d1[i][5]);
+  					driver.findElement(By.xpath(Object.getProperty("SearchButton"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+  					System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				if(s.isElementPresentcheck(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr/td[2]/a"), driver))
+  				{
+  					driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr/td[2]/a")).click();
+  				}                                
+  				else
+  				{
+  					System.out.println("Search Failed ... No data Found ");
+  				}
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+  					System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  					//Thread.sleep(3000);
+  					String pageNo = driver.findElement(By.xpath(Object.getProperty("GetNoOfPages"))).getText();
+  					int pointToCut=0;
+  					String totalRecord="Null";
+  				if(pageNo.contains(" of "))
+  				{
+  					pointToCut=pageNo.indexOf(" of ");
+  					totalRecord = pageNo.substring(pointToCut+4);
+  					System.out.println(totalRecord);
+  				}
+  				else
+  				{
+  					System.out.println("Error!!!!!!"+pageNo);
+  				}
+  				if(totalRecord.equalsIgnoreCase("0"))
+  				{
+  					System.out.println("No Record Found");
+  					acop = "Asset History not displayed as expected";
+						data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+						rc++;
+						String scr = s.CaptureScreenshot();
+						excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+						System.out.println( "###################Test case 28 execution completed############################");
+  				}
+  				else
+  				{
+  					System.out.println("Asset History displayed successfully");
+  					acop = "Asset History displayed as expected";
+					data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+					rc++;
+					excel.writePass(d1[i][0], counter, sheet, acop);
+					System.out.println( "###################Test case 28 execution completed############################");
+  				}
+  				driver.findElement(By.xpath(Object.getProperty("ClearSearch"))).click();
+  				
+  				if(s.isAlertPresent(driver))
+	  			{
+	  				driver.switchTo().alert().accept();
+	  			}
+  				
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("Reefers"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+  				
+  					
+  				}
+  				//End of Test Case 28
+  				
+  				//Test Case 29
+  				if(d1[i][0].equalsIgnoreCase("TC29"))
+                {
+                       System.out.println( "###################Test case 29 is executing############################");
+                       Thread.sleep(4000);
+                       driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {
+                             
+                              System.out.println("inside while");
+                              Thread.sleep(1000);
+                       }
+                       driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {
+                             
+                              System.out.println("inside while");
+                              Thread.sleep(1000);
+                       }
+                      
+                       String parentHandle = driver.getWindowHandle(); // get the current window handle
+                    System.out.println(parentHandle);               //Prints the parent window handle .
+                    String valChk = driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr[1]/td[11]/a")).getText();
+                    //String trimVal = valChk.trim();
+                    String mysz2 = valChk.replaceAll(",\\s",",");
+                    System.out.println(mysz2);
+                    driver.findElement(By.xpath(".//*[@id='div-100-datagrid-tbody']/tr[1]/td[11]/a")).click();
+                    Thread.sleep(5000);
+                    for (String winHandle : driver.getWindowHandles()) 
+                    { //Gets the new window handle
+                        System.out.println(winHandle);
+                    }   
+                    //Thread.sleep(4000);//Clicking on this window
+                    for (String winHandle : driver.getWindowHandles()) 
+                    { //Gets the new window handle
+                        System.out.println(winHandle);
+                        driver.switchTo().window(winHandle);        // switch focus of WebDriver to the next found window handle (that's your newly opened window)             
+                    }
+                    /*WebDriverWait wait = new WebDriverWait(driver, 10); html/body/div[2]/div[2]/div/div/h1
+                    wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[1]/h2"))));*/
+                    int count=0;
+                    while(!s.isElementPresentcheck(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[1]/h2"), driver))
+                    {
+                    	count++;
+                    	Thread.sleep(2000);
+                    	if(count>=10)
+                    	{
+                    		break;
+                    	}
+                    }
+                    //     Thread.sleep(6000);
+                    String pageNav="";
+                    if(count<10)
+                    {
+                        WebElement htmltable=driver.findElement(By.cssSelector(".map__window>ul"));
+                        //System.out.println(htmltable.getAttribute("value"));
+                       //htmltable = htmltable.findElement(By.tagName("ul"));
+                       List<WebElement> rows=htmltable.findElements(By.tagName("li"));
+                       System.out.println("No. of Rows in the WebTable: "+rows.size());
+                       //System.out.println(rows);
+                       //System.out.println("CHK1");
+               // for(int rnum=1;rnum<=rows.size();rnum++)
+               // {
+                      
+                       pageNav = driver.findElement(By.cssSelector(".-location")).getText();
+                       //String pageNav = driver.findElement(By.xpath(".//*[@id='map']/div/div[1]/div[4]/div[4]/div[2]/ul/li["+rnum+"]")).getAttribute("value");
+                       System.out.println(pageNav);
+                    }
+                    if (pageNav.contains(mysz2))
+                       {
+                              System.out.println("Location Loded Successfully");
+                              acop = "Location Loded Successfully";
+                              data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                              rc++;
+                              excel.writePass(d1[i][0], counter, sheet, acop);
+                              System.out.println( "###################Test case 29 execution completed############################");
+                       }
+                       else
+                       {
+                              System.out.println("Location not loaded");
+                              acop = "Location not loaded";
+                              data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                              rc++;
+                              String scr = s.CaptureScreenshot();
+                              excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+                              System.out.println( "###################Test case 29 execution completed############################");
+                       }
+                    
+                //}
+                driver.close();
+                driver.switchTo().window(parentHandle);
+                }
+  				//End of Test Case 29
+  				
+  				//Test Case 30
+  				if(d1[i][0].equalsIgnoreCase("TC30"))
+                {
+                       System.out.println( "###################Test case 30 is executing############################");
+                       Thread.sleep(4000);
+                       driver.findElement(By.xpath(Object.getProperty("FleetSelect"))).click();
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetInput"))).sendKeys(d1[i][4]);
+                       driver.findElement(By.xpath(Object.getProperty("AllFleetSelect"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       { 
+                          System.out.println("inside while");
+                          Thread.sleep(1000);
+                       }
+                       driver.findElement(By.xpath(Object.getProperty("Status"))).click();
+                       while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                       {  
+                          System.out.println("inside while");
+                          Thread.sleep(1000);
+                       }
+	                   driver.findElement(By.xpath(Object.getProperty("ReeferSearch"))).sendKeys(d1[i][5]);
+	                   driver.findElement(By.xpath(Object.getProperty("SearchButton"))).click();
+	                   while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	                   {
+ 						System.out.println("inside while");
+		  					Thread.sleep(1000);
+	                   }
+		  					String Fleet = driver.findElement(By.xpath(Object.getProperty("StatusFleet"))).getText();
+		  					driver.findElement(By.xpath(Object.getProperty("StatusSnapshot"))).click();
+		  					while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	                   {
+		  						System.out.println("inside while");
+		  						Thread.sleep(1000);
+	                   }
+		  					String FuelSensorType = driver.findElement(By.xpath(Object.getProperty("StatusFuelSensorType"))).getText();
+	  					String PreTripResult = driver.findElement(By.xpath(Object.getProperty("StatusPretripResult"))).getText(); 
+	  					String AlarmShutdown = driver.findElement(By.xpath(Object.getProperty("StatusAlarmShutDown"))).getText();
+	  					String UtilizationType = driver.findElement(By.xpath(Object.getProperty("StatusUtilization"))).getText();
+	  					
+	  					
+		  					if(s.isElementPresentcheck(By.xpath(Object.getProperty("StatusReport")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("MaintenanceStatusReport")), driver)
+		  					  && s.isElementPresentcheck(By.xpath(Object.getProperty("PreTripReport")), driver) && s.isElementPresentcheck(By.xpath(Object.getProperty("AlarmReport")), driver) 
+		  					  && s.isElementPresentcheck(By.xpath(Object.getProperty("UtilizationReport")), driver))
+		  					{
+		  					System.out.println("All Reports are Present");
+                        acop = "All Reports are Present";
+                        data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                        rc++;
+                        excel.writePass(d1[i][0], counter, sheet, acop);
+                        
+		  					}
+		  					else
+		  					{
+		  					System.out.println(" Reports not Present");
+                        acop = "Reports not Present";
+                        data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                        rc++;
+                        String scr = s.CaptureScreenshot();
+                        excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+                       
+		  					}
+		  				String Fleet1 = driver.findElement(By.xpath(Object.getProperty("StatusFleet1"))).getText();	
+		  				
+		  				driver.findElement(By.xpath(Object.getProperty("Maintenance"))).click();
+		  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                   {
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+                   }
+		  				String FuelSensorType1 = driver.findElement(By.xpath(Object.getProperty("StatusFuelSensorType1"))).getText();
+		  				
+		  				driver.findElement(By.xpath(Object.getProperty("Pretrip"))).click();
+		  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+                   {
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+                   }
+		  				String PreTripResult1 = driver.findElement(By.xpath(Object.getProperty("StatusPretripResult1"))).getText();
+		  				
+		  				driver.findElement(By.xpath(Object.getProperty("Alarm"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  				{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+	  				}
+	  				String AlarmShutdown1 = driver.findElement(By.xpath(Object.getProperty("StatusAlarmShutDown1"))).getText();
+	  				
+	  				driver.findElement(By.xpath(Object.getProperty("Logistic"))).click();
+	  				while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+	  				{
+  						System.out.println("inside while");
+  						Thread.sleep(1000);
+	  				}
+	  				String UtilizationType1 = driver.findElement(By.xpath(Object.getProperty("StatusUtilization1"))).getText();
+	  				
+	  				
+		  				if(Fleet.equalsIgnoreCase(Fleet1) && FuelSensorType.equalsIgnoreCase(FuelSensorType1) && PreTripResult.equalsIgnoreCase(PreTripResult1) 
+		  						&& AlarmShutdown.equalsIgnoreCase(AlarmShutdown1) && UtilizationType.equalsIgnoreCase(UtilizationType1))
+		  				{
+		  					System.out.println("**************All Data Matching******************");
+		  				acop = "Data Matched Successfully";
+                    data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Pass", s.timestamp(stime)});
+                    rc++;
+                    excel.writePass(d1[i][0], counter, sheet, acop);
+		  				System.out.println( "###################Test case 30 execution completed############################");
+		  				}
+		  				else
+		  				{
+		  					System.out.println("************** Data NOT Matching******************");
+		  				acop = "Data Missmatch";
+                    data.put(""+rc, new Object[] {d1[i][0], "ReefersStatus", d1[i][1], d1[i][8], acop, "Fail", s.timestamp(stime)});
+                    rc++;
+                    String scr = s.CaptureScreenshot();
+                    excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+		  				System.out.println( "###################Test case 30 execution completed############################");
+		  				}
+		  			driver.findElement(By.xpath(Object.getProperty("ClearSearch"))).click();
+	  			if(s.isAlertPresent(driver))
+	  			{
+	  				driver.switchTo().alert().accept();
+	  			}		
+	  			while(s.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+					{
+						System.out.println("inside while");
+						Thread.sleep(1000);
+					}
+                       
+                }
+  				//End of Test Case 30
+  					
+  			}
+			
+			
+	}catch(Exception ex)
+	{ex.printStackTrace();}
+	
+		driver.close();		
+		return data;
+	
+		}
+
+	}
+

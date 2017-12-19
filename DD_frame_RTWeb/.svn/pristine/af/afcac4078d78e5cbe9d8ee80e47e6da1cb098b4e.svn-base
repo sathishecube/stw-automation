@@ -1,0 +1,197 @@
+package dd_test;
+
+import org.testng.annotations.Test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+
+import com.relevantcodes.extentreports.ExtentReports;
+import com.relevantcodes.extentreports.LogStatus;
+import com.relevantcodes.extentreports.ExtentTest;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
+import org.apache.log4j.Logger;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.util.IOUtils;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.DataProvider;
+
+import dd_core.TestCore;
+import dd_utils.TestUtil;
+public class Login extends TestCore 
+{
+	static TestUtil t =new TestUtil();
+		
+	@Test
+	public static Map<String, Object[]> testcases(Map<String, Object[]> data, int rc ,String sheet, ExtentTest test, int scase,int ecase) //throws IOException, InterruptedException
+	{
+		String acop =null;
+		int counter =1;
+		ExtentTest node = reports.startTest("Login");
+		String[][] d1 =TestUtil.getData("Login");
+		for(int i=scase-1;i<ecase;i++ )
+		{
+			//driver = new ChromeDriver();
+			//driver = new FirefoxDriver(t.excelDownload());
+			//driver.get(Object.getProperty("URL"));
+			long stime=System.currentTimeMillis();
+			if(d1[i][0].equalsIgnoreCase("TC1"))
+			{
+			  try
+			  {
+				  //FirefoxDriverManager.getInstance().setup("0.14.0");
+				  driver = new FirefoxDriver(t.excelDownload());
+				  driver.get(Object.getProperty("URL"));
+				  //driver.get(Object.getProperty("URL"));
+				  System.out.println("Loaded successfully");
+				  t.dologin(driver ,d1[i][2], d1[i][3]);
+				  Thread.sleep(5000);
+				  while(t.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+				  {
+					  Thread.sleep(2000);
+				  }
+				  if(t.isElementPresentcheck(By.xpath(".//*[@id='div-100-sub-lnk']"), driver))
+				  {
+				  
+					System.out.println("Pass");
+					acop = "Fleet Status Page Loaded Successfully";
+					node.log(LogStatus.PASS, acop);
+					data.put(""+rc, new Object[] {d1[i][0], "Login", d1[i][1], d1[i][4], acop, "Pass", t.timestamp(stime)});
+					rc++;
+					excel.writePass(d1[i][0], counter, sheet, acop);
+					Thread.sleep(1000);
+					driver.findElement(By.xpath(Object.getProperty("ReeferTrak"))).click();
+					Thread.sleep(1000);
+					driver.findElement(By.xpath(Object.getProperty("Logout"))).click();
+					Thread.sleep(1000);
+					if(t.isAlertPresent(driver))
+					{
+						driver.switchTo().alert().accept();
+					}
+					else
+					{
+						
+						acop = "Fleet Status Page not Loaded Successfully";
+						node.log(LogStatus.FAIL, acop);
+						//t.CaptureScreenshot();
+						data.put(""+rc, new Object[] {d1[i][0], "Login",  d1[i][1], d1[i][4], acop, "Fail", t.timestamp(stime)});
+						rc++;
+						String scr = t.CaptureScreenshot();
+						excel.writeFail(d1[i][0], counter, sheet, acop ,scr);
+						System.out.println(stime+ "###################Test case 1 execution completed############################");
+						
+					}
+					}
+			  else
+				{
+					
+					acop = "Fleet Status Page not Loaded Successfully";
+					node.log(LogStatus.FAIL, acop);
+					//t.CaptureScreenshot();
+					data.put(""+rc, new Object[] {d1[i][0], "Login",  d1[i][1], d1[i][4], acop, "Fail", t.timestamp(stime)});
+					rc++;
+					//String screen =t.CaptureScreenshot();
+					String scr = t.CaptureScreenshot();
+					 
+					excel.writeFail(d1[i][0], counter, sheet, acop ,scr);
+					System.out.println(stime+ "###################Test case 1 execution completed############################");
+					
+				}
+				}catch(Exception n)
+			  	{
+				 
+					n.printStackTrace();
+					Assert.assertTrue(n.getMessage(), false);
+					try {
+						TestUtil.CaptureScreenshot();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				  
+			  	}
+			 }
+	
+		  if(d1[i][0].equalsIgnoreCase("TC2"))
+		  {
+			  try
+			  {
+				  driver = new FirefoxDriver(t.excelDownload());
+				  driver.get(Object.getProperty("URL"));
+			  	  WebDriverWait wait = new WebDriverWait(driver,20);
+			  	  wait.until(ExpectedConditions.elementToBeClickable(By.xpath(Object.getProperty("UserID"))));
+			  	  t.dologin(driver,d1[i][2], d1[i][3]);
+			  	  while(t.isElementPresentcheck(By.xpath(".//*[@id='DivOverlayChild']"), driver))
+			  	  {
+			  		  Thread.sleep(1000);
+			  	  }
+			  	  if(t.isElementPresentcheck(By.xpath(".//*[@id='errorMsg']"), driver))
+			  	  {
+			  		  System.out.println(driver.findElement(By.xpath(".//*[@id='errorMsg']")).getText());
+			  		  acop = driver.findElement(By.xpath(".//*[@id='errorMsg']")).getText();
+			  		  node.log(LogStatus.PASS, acop);
+			  	  }
+			  	  else
+			  	  {
+			  		  acop = "Login Successful";
+			  		  node.log(LogStatus.FAIL, acop);
+			  		  String screen =t.CaptureScreenshot();
+			  		  Thread.sleep(1000);
+			  		  driver.findElement(By.xpath(Object.getProperty("Logout"))).click();
+			  	  }
+			  	  System.out.println(acop);
+			  	  if(acop.equalsIgnoreCase(d1[i][4]))
+			  	  {
+			  		  System.out.println("Pass");
+			  		  data.put(""+rc, new Object[] {d1[i][0], "Login", d1[i][1], d1[i][4], acop, "Pass", t.timestamp(stime)});
+			  		  rc++;
+			  		  excel.writePass(d1[i][0], counter, sheet, acop);
+			  	  }
+				else
+				{
+					data.put(""+rc, new Object[] {d1[i][0], "Login", d1[1][1], d1[i][4], acop, "Fail", t.timestamp(stime)});
+					rc++;
+					String scr = t.CaptureScreenshot();
+					excel.writeFail(d1[i][0], counter, sheet, acop,scr);
+					System.out.println("Fail");
+									}
+				Thread.sleep(4000);
+			}
+			  catch (Throwable th)
+			  {
+				  th.printStackTrace();
+				  Assert.assertTrue(th.getMessage(),false);
+				 
+			  try {
+				TestUtil.CaptureScreenshot();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			  }
+			  
+		  }
+		  driver.close();
+		}
+		reports.endTest(node);
+		reports.flush();
+		return data;
+		  }
+	
+}
+	
+

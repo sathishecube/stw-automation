@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/activation-1.1.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-exec-1.3.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-io-2.5.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-lang3-3.5.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/cssparser-0.9.21.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/dom4j-1.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/extentreports-2.41.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/extentreports-3.0.5.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/gson-2.8.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/guava-21.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/hamcrest-core-1.3.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/hamcrest-library-1.3.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/htmlunit-2.24.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/htmlunit-core-js-2.23.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/htmlunit-driver-2.24.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/httpclient-4.5.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/httpcore-4.4.4.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/httpmime-4.5.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/javax.servlet-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/jetty-io-9.4.1.v20170120.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/jetty-util-9.4.1.v20170120.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/jna-4.1.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/jna-platform-4.1.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/jtds-1.2.5.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/log4j-1.2.14.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/logging-selenium-1.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/mail.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/mysql-connector-java-5.0.7-bin(2).jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/neko-htmlunit-2.24.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/phantomjsdriver-1.4.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-examples-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-excelant-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-ooxml-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-ooxml-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-ooxml-schemas-3.6-20091214.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-ooxml-schemas-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/poi-scratchpad-3.16.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/sac-1.3.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/saxon-8.7.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/SaxonLiaison.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/serializer-2.7.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/sqljdbc4.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/stax2-api-3.0.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/testng.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/testng-xslt-maven-plugin-test-0.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/websocket-api-9.2.20.v20161216.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/websocket-client-9.2.20.v20161216.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/websocket-common-9.2.20.v20161216.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/woodstox-core-asl-4.1.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xalan-2.7.2.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xercesImpl-2.11.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xmi-2.5.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xml-apis-1.4.01.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/xstream-1.3.1.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/freemarker-2.3.26-incubating.jar"/>
+	<classpathentry kind="lib" path="//amxserver/amx-share/STW_QA/Jar files/classes12.jar"/>
+	<classpathentry kind="lib" path="//AMXSERVER/amx-share/STW_QA/Jar files/selenium-server-standalone-3.8.1.jar"/>
+	<classpathentry kind="lib" path="//AMXSERVER/amx-share/STW_QA/Jar files/opencsv-2.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

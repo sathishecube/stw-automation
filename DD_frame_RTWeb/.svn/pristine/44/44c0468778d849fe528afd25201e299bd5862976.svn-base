@@ -1,0 +1,12 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Data driven framework">
+ 
+<test name="Login">
+    <classes>
+        <class name="dd_core.TestCore" ></class>  
+    </classes>
+</test>
+
+
+
+</suite>
