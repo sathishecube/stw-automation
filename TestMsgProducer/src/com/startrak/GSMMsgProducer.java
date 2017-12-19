@@ -44,7 +44,7 @@ public class GSMMsgProducer {
 		GSMMsgProducer gsmProducer = new GSMMsgProducer();
 		gsmProducer.jmsInit();		
 		sendMessage(rtSn, payLoad, gsmProducer);
-		
+		System.out.println("Testing");
 	}
 	
 	public static void sendMessage(String unitId, String payload, GSMMsgProducer gsmProducer) {
