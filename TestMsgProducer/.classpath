@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/jms.jar"/>
+	<classpathentry kind="lib" path="lib/oc4jclient.jar"/>
+	<classpathentry kind="lib" path="lib/javax77.jar"/>
+	<classpathentry kind="lib" path="lib/jta.jar"/>
+	<classpathentry kind="lib" path="lib/ejb.jar"/>
+	<classpathentry kind="lib" path="lib/toplink.jar"/>
+	<classpathentry kind="lib" path="lib/gpUtil.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
